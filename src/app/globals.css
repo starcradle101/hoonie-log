@@ -65,7 +65,7 @@ pre [data-line] {
 
 /* tailwind typography */
 
-.prose .anchor {
+/* .prose .anchor {
 	@apply absolute invisible no-underline;
 
 	margin-left: -1em;
@@ -73,7 +73,7 @@ pre [data-line] {
 	width: 80%;
 	max-width: 700px;
 	cursor: pointer;
-}
+} */
 
 .anchor:hover {
 	@apply visible;
