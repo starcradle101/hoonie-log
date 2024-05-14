@@ -3,9 +3,15 @@ import Header from './components/Header';
 import Footer from './components/Footer';
 import './globals.css';
 
-const myFont = localFont({
-	src: '../../public/pretendard_variable.woff2',
+const pretendard_var = localFont({
+	src: '../../public/fonts/pretendard_variable.woff2',
 	display: 'swap',
+});
+
+const ridiBatang = localFont({
+	src: '../../public/fonts/RIDIBatang.otf',
+	display: 'swap',
+	variable: '--font-RIDIBatang',
 });
 
 export default function RootLayout({
@@ -16,10 +22,10 @@ export default function RootLayout({
 	return (
 		<html lang='en'>
 			<body
-				className={`${myFont.className} antialiased flex flex-col h-screen`}
+				className={`${pretendard_var.className} antialiased flex flex-col h-screen`}
 			>
 				<Header></Header>
-				<main className='flex-1'>{children}</main>
+				<main className={`${ridiBatang.className} flex-1`}>{children}</main>
 				<Footer></Footer>
 			</body>
 		</html>
