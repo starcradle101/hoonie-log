@@ -12,8 +12,9 @@ export default function Footer() {
 					<Linkedin />
 				</a>
 			</div>
-			<span className='block text-center'>
-				© 2024. Hoon Kang all rights reserved.
+			<span className='block text-center text-sm text-slate-500'>
+				© 2024. Hoon Kang. <br />이 페이지에는 리디주식회사에서 제공한 리디바탕
+				글꼴이 사용되어 있습니다.
 			</span>
 		</div>
 	);
