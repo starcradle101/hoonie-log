@@ -1,6 +1,6 @@
 import { Metadata } from 'next';
 import Image from 'next/image';
-import Profile from '@/public/profile.png';
+import Profile from '@/public/profile.jpg';
 import Github from './components/Github';
 import Linkedin from './components/Linkedin';
 import Mail from './components/Mail';
@@ -36,12 +36,12 @@ export default function Home() {
 	return (
 		<>
 			<h2 className='text-2xl md:text-3xl mb-8'>🧑🏻‍💻 Hoonie Hoon</h2>
-			<section className='flex flex-wrap gap-6 justify-center mb-10'>
+			<section className='flex flex-wrap gap-8 justify-center mb-10'>
 				<Image
 					src={Profile}
 					alt='profile'
 					priority={true}
-					className=' w-72 h-auto rounded-2xl aspect-square'
+					className='w-80 h-auto rounded-2xl aspect-square'
 				/>
 				<div className='self-center '>
 					<p className='font-medium text-base md:text-lg mb-3'>
@@ -52,7 +52,7 @@ export default function Home() {
 						<br />
 						복잡함 속의 단순함을 찾기 위해 노력합니다.
 					</p>
-					<ul className='space-y-1 self-center'>
+					<ul className='space-y-2 self-center'>
 						{socialLinks.map((link, index) => (
 							<li key={index} className='flex gap-1 hover:underline'>
 								{link.icon}
