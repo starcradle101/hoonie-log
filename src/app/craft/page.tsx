@@ -7,11 +7,11 @@ export default function Page() {
 
 	return (
 		<>
-			<section>
-				<h1 className='text-4xl font-semibold border-b-2 border-slate-200 mb-4 pb-2'>
+			<section className='border-b-2 border-slate-300 mb-4'>
+				<h1 className='text-3xl font-semibold mb-2'>
 					Craft
 				</h1>
-				<p>지식을 활용하여 나만의 것으로 풀어낸 공간입니다.</p>
+				<p className='text-slate-500'>지식을 활용하여 나만의 것으로 풀어낸 공간입니다.</p>
 			</section>
 			<section>
 				<PostAbstractList posts={craftAbstarcts} />
