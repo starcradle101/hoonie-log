@@ -11,20 +11,23 @@
 		"build": "next build",
 		"start": "next start",
 		"lint": "next lint",
-		"prepare": "husky"
+		"prepare": "husky && husky install"
+	},
+	"lint-staged": {
+		"*.{js,jsx,ts,tsx}": [
+			"prettier --write",
+			"eslint --fix"
+		],
+		"*.js": "eslint --cache --fix",
+		"*.{js,css,md}": "prettier --write"
 	},
 	"dependencies": {
 		"@giscus/react": "^3.0.0",
 		"@jsdevtools/rehype-toc": "^3.0.2",
-		"@mdx-js/loader": "^3.0.1",
-		"@mdx-js/react": "^3.0.1",
 		"@next/mdx": "^14.2.3",
 		"@supabase/ssr": "^0.3.0",
 		"@supabase/supabase-js": "^2.43.2",
-		"@types/glob": "^8.1.0",
-		"@types/mdx": "^2.0.13",
 		"dayjs": "^1.11.11",
-		"glob": "^10.3.12",
 		"gray-matter": "^4.0.3",
 		"next": "14.2.3",
 		"next-mdx-remote": "^4.4.1",
