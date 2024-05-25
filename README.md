@@ -67,7 +67,6 @@ Git-Flow
 <img src="https://img.shields.io/badge/PostCSS-DD3A0A?style=flat-square&logo=PostCSS&logoColor=ffffff"/>
 <img src="https://img.shields.io/badge/Supabase-000000?style=flat-square&logo=Supabase&logoColor=#3FCF8E"/>
 <br/>
-<br/>
 <img src="https://img.shields.io/badge/Prettier-F7B93E?style=flat-square&logo=Prettier&logoColor=000000"/>
 <img src="https://img.shields.io/badge/ESLint-4B32C3?style=flat-square&logo=ESLint&logoColor=ffffff"/>
 <img src="https://img.shields.io/badge/Commitlint-000000?style=flat-square&logo=Commitlint&logoColor=#000000"/>
