@@ -1,16 +1,17 @@
 ---
 name: New Issue
 about: 새로운 이슈 작성을 위한 템플릿
-title: "[Feat/Design/Fix/Refactor]: 새로운 이슈"
+title: "[Type]: 새로운 이슈"
 labels: ''
 assignees: starcradle101
 
 ---
 
-## Description
+## 🖨️ Description
 
-## To-do
+## 📝 To-do
 - [ ] todo
 - [ ] todo
 
-## ETC
+## 🧑🏻‍💻 ETC
+- 기타 사항은 추후 추가 예정입니다.
