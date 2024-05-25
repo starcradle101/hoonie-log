@@ -22,7 +22,7 @@ export default function RootLayout({
 	return (
 		<html lang='en'>
 			<body
-				className={`${pretendard_var.className} antialiased flex flex-col h-screen`}
+				className={`${pretendard_var.className} flex h-screen flex-col antialiased`}
 			>
 				<Header></Header>
 				<main className={`${ridiBatang.className} flex-1`}>{children}</main>

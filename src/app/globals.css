@@ -14,7 +14,7 @@
 }
 
 body {
-	@apply md:max-w-3xl m-auto px-5;
+	@apply m-auto px-5 md:max-w-3xl;
 }
 /* prettyCode */
 pre {
@@ -28,7 +28,7 @@ pre [data-line] {
 
 /* tailwind typography */
 .prose a {
-	@apply underline transition-all decoration-neutral-400;
+	@apply underline decoration-neutral-400 transition-all;
 }
 
 .prose code::after,
@@ -42,27 +42,27 @@ code::before {
 
 .prose p > code,
 li > code {
-	@apply font-semibold bg-slate-200 p-1 rounded text-center;
+	@apply rounded bg-slate-200 p-1 text-center font-semibold;
 }
 
 .prose pre {
-	@apply bg-neutral-50 dark:bg-neutral-900 rounded-lg overflow-x-auto border border-neutral-200 dark:border-neutral-900 py-2 px-3 text-sm;
+	@apply overflow-x-auto rounded-lg border border-neutral-200 bg-neutral-50 px-3 py-2 text-sm dark:border-neutral-900 dark:bg-neutral-900;
 }
 
 .prose h1 {
-	@apply text-3xl font-medium tracking-tight mt-6 mb-2;
+	@apply mb-2 mt-6 text-3xl font-medium tracking-tight;
 }
 
 .prose h2 {
-	@apply text-2xl font-medium tracking-tight mt-6 mb-2;
+	@apply mb-2 mt-6 text-2xl font-medium tracking-tight;
 }
 
 .prose h3 {
-	@apply text-xl font-medium tracking-tight mt-6 mb-2;
+	@apply mb-2 mt-6 text-xl font-medium tracking-tight;
 }
 
 .prose h4 {
-	@apply text-lg font-medium tracking-tight mt-6 mb-2;
+	@apply mb-2 mt-6 text-lg font-medium tracking-tight;
 }
 
 .prose strong {

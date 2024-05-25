@@ -7,10 +7,10 @@ export default function Page() {
 
 	return (
 		<>
-			<section className='border-b-2 border-slate-300 mb-4'>
-				<h1 className='text-3xl font-semibold mb-2'>Blog</h1>
+			<section className='mb-4 border-b-2 border-slate-300'>
+				<h1 className='mb-2 text-3xl font-semibold'>Blog</h1>
 				<p className=' text-slate-500'>
-					회고부터 유용한 지식까지. 기록을 통해 발전합니다.
+					회고부터 유용한 지식까지, 기록을 통해 발전합니다.
 				</p>
 			</section>
 			<section>

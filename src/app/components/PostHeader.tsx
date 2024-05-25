@@ -13,16 +13,18 @@ export default function PostHeader({
 	readingMinutes,
 }: PostHeaderProps) {
 	return (
-		<section className='border-b-2 border-slate-200 flex flex-col items-center pb-1'>
-			<h1 className='text-3xl mb-2'>{title}</h1>
-			<div className='flex gap-4 text-slate-500 text-sm'>
-				<div className='flex gap-1'>
+		<section className='flex flex-col items-center border-b-2 border-slate-200 pb-1'>
+			<h1 className='mb-2 text-xl sm:text-2xl md:text-3xl lg:text-4xl'>
+				{title}
+			</h1>
+			<div className='flex gap-4 text-sm text-slate-500'>
+				<div className='flex gap-0.5'>
 					<Calendar />
 					{dateString}
 				</div>
-				<div className='flex gap-1'>
+				<div className='flex gap-0.5'>
 					<Clock />
-					{readingMinutes} 분
+					{readingMinutes}분
 				</div>
 			</div>
 		</section>

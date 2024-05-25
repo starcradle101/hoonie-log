@@ -7,10 +7,10 @@ export default function Header() {
 				hoonie-log
 			</Link>
 			<nav className='flex gap-4'>
-				<Link className='text-base self-center font-medium' href='/blog'>
+				<Link className='self-center text-base font-medium' href='/blog'>
 					blog
 				</Link>
-				<Link className='text-base self-center font-medium' href='/craft'>
+				<Link className='self-center text-base font-medium' href='/craft'>
 					craft
 				</Link>
 			</nav>

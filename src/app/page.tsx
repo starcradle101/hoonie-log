@@ -35,19 +35,20 @@ export const metadata: Metadata = {
 export default function Home() {
 	return (
 		<>
-			<h2 className='text-2xl md:text-3xl mb-8'>🧑🏻‍💻 Hoonie Hoon</h2>
-			<section className='flex flex-wrap gap-8 justify-center mb-10'>
+			<h2 className='mb-8 text-2xl md:text-3xl'>🧑🏻‍💻 Hoonie Hoon</h2>
+
+			<section className='mb-10 flex flex-wrap justify-center gap-8'>
 				<Image
 					src={Profile}
 					alt='profile'
 					priority={true}
-					className='w-80 h-auto rounded-2xl aspect-square'
+					className='aspect-square h-auto w-80 rounded-2xl'
 				/>
 				<div className='self-center '>
-					<p className='font-medium text-base md:text-lg mb-3'>
+					<p className='mb-3 text-base font-medium md:text-lg'>
 						기록하는 개발자 후니훈입니다.
 					</p>
-					<p className='text-sm md:text-base mb-4'>
+					<p className='mb-4 text-sm md:text-base'>
 						꾸준한 회고를 통해 성장합니다.
 						<br />
 						복잡함 속의 단순함을 찾기 위해 노력합니다.
@@ -62,7 +63,7 @@ export default function Home() {
 					</ul>
 				</div>
 			</section>
-			<h2 className='text-2xl md:text-3xl mb-8'>📄 최근 포스트</h2>
+			<h2 className='mb-8 text-2xl md:text-3xl'>📄 최근 포스트</h2>
 		</>
 	);
 }
