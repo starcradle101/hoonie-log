@@ -4,6 +4,10 @@
 
 hoonie-log는 [Next.js](https://nextjs.org/)와 [Supabase](https://supabase.com/)로 빚은 블로그입니다.
 
+# 패치노트
+
+v0.1.0: 따끈따끈하게 배포된 hoonie-log를 만나보세요. 현재는 간단한 디자인만 확인할 수 있답니다.
+
 # 개발 기간
 
 !자세한 개발 기간은 추후 업데이트 예정입니다.
