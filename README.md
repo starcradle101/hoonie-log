@@ -61,16 +61,9 @@ Git-Flow
 
 # 개발 환경
 
-<img src="https://img.shields.io/badge/Next.js-181717?style=flat-square&logo=Next.js&logoColor=#000000"/>
-<img src="https://img.shields.io/badge/TypeScript-3178C6?style=flat-square&logo=TypeScript&logoColor=ffffff"/>
-<img src="https://img.shields.io/badge/TailwindCSS-06B6D4?style=flat-square&logo=TailwindCSS&logoColor=ffffff"/>
-<img src="https://img.shields.io/badge/PostCSS-DD3A0A?style=flat-square&logo=PostCSS&logoColor=ffffff"/>
-<img src="https://img.shields.io/badge/Supabase-000000?style=flat-square&logo=Supabase&logoColor=#3FCF8E"/>
+<img src="https://img.shields.io/badge/Next.js-181717?style=flat-square&logo=Next.js&logoColor=#000000"/><img src="https://img.shields.io/badge/TypeScript-3178C6?style=flat-square&logo=TypeScript&logoColor=ffffff"/><img src="https://img.shields.io/badge/TailwindCSS-06B6D4?style=flat-square&logo=TailwindCSS&logoColor=ffffff"/><img src="https://img.shields.io/badge/PostCSS-DD3A0A?style=flat-square&logo=PostCSS&logoColor=ffffff"/><img src="https://img.shields.io/badge/Supabase-000000?style=flat-square&logo=Supabase&logoColor=#3FCF8E"/>
 <br/>
-<img src="https://img.shields.io/badge/Prettier-F7B93E?style=flat-square&logo=Prettier&logoColor=000000"/>
-<img src="https://img.shields.io/badge/ESLint-4B32C3?style=flat-square&logo=ESLint&logoColor=ffffff"/>
-<img src="https://img.shields.io/badge/Commitlint-000000?style=flat-square&logo=Commitlint&logoColor=#000000"/>
-<img src="https://img.shields.io/badge/GitHub-000000?style=flat-square&logo=GitHub&logoColor=#000000"/>
+<img src="https://img.shields.io/badge/Prettier-F7B93E?style=flat-square&logo=Prettier&logoColor=000000"/><img src="https://img.shields.io/badge/ESLint-4B32C3?style=flat-square&logo=ESLint&logoColor=ffffff"/><img src="https://img.shields.io/badge/Commitlint-000000?style=flat-square&logo=Commitlint&logoColor=#000000"/><img src="https://img.shields.io/badge/GitHub-000000?style=flat-square&logo=GitHub&logoColor=#000000"/>
 
 !개발 환경은 업데이트 예정입니다.
 
