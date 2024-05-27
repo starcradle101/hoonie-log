@@ -14,12 +14,10 @@
 		"prepare": "husky && husky install"
 	},
 	"lint-staged": {
-		"*.{js,jsx,ts,tsx}": [
+		"*.{ts,tsx,css}": [
 			"prettier --write",
 			"eslint --fix"
-		],
-		"*.js": "eslint --cache --fix",
-		"*.{js,css,md}": "prettier --write"
+		]
 	},
 	"dependencies": {
 		"@giscus/react": "^3.0.0",
