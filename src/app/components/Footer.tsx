@@ -1,5 +1,6 @@
 import Github from './Github';
 import Linkedin from './Linkedin';
+import Authentication from './Authentication';
 
 export default function Footer() {
 	return (
@@ -10,6 +11,9 @@ export default function Footer() {
 				</a>
 				<a href='https://www.linkedin.com/in/dreamerdev12/'>
 					<Linkedin />
+				</a>
+				<a href=''>
+					<Authentication />
 				</a>
 			</div>
 			<span className='block break-keep text-center text-sm text-slate-500'>
