@@ -1,5 +1,5 @@
 import { getPostAbstracts } from '@/src/lib/api';
-import PostAbstractList from '../components/PostAbstarctList';
+import PostAbstractList from '../../components/PostAbstarctList';
 import { POSTS_PATH } from '@/src/lib/constants';
 
 export default function Page() {

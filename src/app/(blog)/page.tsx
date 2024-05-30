@@ -1,9 +1,9 @@
 import { Metadata } from 'next';
 import Image from 'next/image';
 import Profile from '@/public/profile.jpg';
-import Github from './components/Github';
-import Linkedin from './components/Linkedin';
-import Mail from './components/Mail';
+import Github from '../components/Github';
+import Linkedin from '../components/Linkedin';
+import Mail from '../components/Mail';
 
 const socialLinks = [
 	{

@@ -1,9 +1,9 @@
 import { getPostBySlug, getPostSlugsFrom } from '@/src/lib/api';
 import { POSTS_PATH } from '@/src/lib/constants';
 import { markdownToHTML } from '@/src/lib/api';
-import PostHeader from '../../components/PostHeader';
-import PostBody from '../../components/PostBody';
-import Giscus from '../../components/Giscus';
+import PostHeader from '../../../components/PostHeader';
+import PostBody from '../../../components/PostBody';
+import Giscus from '../../../components/Giscus';
 
 export function generateStaticParams() {
 	const slugs = getPostSlugsFrom(POSTS_PATH);
