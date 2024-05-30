@@ -10,9 +10,6 @@ export default function Header() {
 				<Link className='self-center text-base font-medium' href='/blog'>
 					blog
 				</Link>
-				<Link className='self-center text-base font-medium' href='/craft'>
-					craft
-				</Link>
 			</nav>
 		</header>
 	);
