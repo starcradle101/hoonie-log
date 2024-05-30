@@ -13,9 +13,6 @@
 	}
 }
 
-body {
-	@apply m-auto px-5 md:max-w-3xl;
-}
 /* prettyCode */
 pre {
 	overflow-x: auto;
