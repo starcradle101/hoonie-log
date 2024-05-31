@@ -1,4 +1,5 @@
 import HoonieLogo from '../../components/HoonieLogo';
+import Link from 'next/link';
 import { login } from '@/src/utils/supabase/actions';
 
 export default async function LoginPage() {
@@ -61,6 +62,14 @@ export default async function LoginPage() {
 						</button>
 					</div>
 				</form>
+				<div className='mt-3 flex justify-center'>
+					<Link
+						href='/'
+						className='hover: border-b-2 border-b-white  text-center font-semibold hover:border-b-gray-600 hover:text-gray-600'
+					>
+						← Back to blog
+					</Link>
+				</div>
 			</div>
 		</div>
 	);
