@@ -4,7 +4,7 @@ import { login } from '@/src/utils/supabase/actions';
 
 export default async function LoginPage() {
 	return (
-		<div className='flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8'>
+		<div className='flex h-screen flex-1 flex-col justify-center px-6 py-12 lg:px-8'>
 			<div className='flex flex-col items-center gap-2 sm:mx-auto sm:w-full sm:max-w-sm'>
 				<HoonieLogo />
 				<h2 className='text-center text-2xl font-semibold tracking-tight text-gray-900'>

@@ -13,10 +13,8 @@ export default function DashboardLayout({
 }>) {
 	return (
 		<html lang='en'>
-			<body
-				className={`${pretendard_var.className} flex h-screen flex-col antialiased`}
-			>
-				<main className={`flex-1`}>{children}</main>
+			<body className={`${pretendard_var.className} antialiased`}>
+				<main>{children}</main>
 			</body>
 		</html>
 	);

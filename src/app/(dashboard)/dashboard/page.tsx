@@ -1,6 +1,5 @@
 import { redirect } from 'next/navigation';
 import { createClient } from '@/src/utils/supabase/server';
-import SignOut from '@/src/app/components/SignOut';
 
 export default async function DashboardPage() {
 	const supabase = createClient();
@@ -13,10 +12,10 @@ export default async function DashboardPage() {
 	console.log(data.user);
 
 	return (
-		<>
+		<section className='flex-grow p-6 md:p-12'>
+			<h1 className='text-4xl'>Dashboard</h1>
 			<p>Hello {data.user.email}</p>
 			<p>{data.user.role}</p>
-			<SignOut />
-		</>
+		</section>
 	);
 }
