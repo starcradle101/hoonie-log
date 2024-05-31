@@ -31,8 +31,8 @@ export async function signout() {
 		redirect('/error');
 	}
 
-	revalidatePath('/', 'layout');
-	redirect('/');
+	revalidatePath('/dashboard', 'layout');
+	redirect('/login');
 }
 
 export async function getUserData() {
