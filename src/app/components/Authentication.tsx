@@ -1,16 +1,10 @@
-import Image from 'next/image';
 import Link from 'next/link';
-import AuthenticationLogo from '@/public/icons/icon-authentication.svg';
+import { FingerPrintIcon } from '@heroicons/react/24/solid';
 
 export default function Linkedin() {
 	return (
 		<Link href='/login'>
-			<Image
-				src={AuthenticationLogo}
-				width={24}
-				height={24}
-				alt='linkedin icon'
-			/>
+			<FingerPrintIcon width={24} />
 		</Link>
 	);
 }

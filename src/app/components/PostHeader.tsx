@@ -1,5 +1,5 @@
-import Clock from './Clock';
-import Calendar from './Calender';
+import { ClockIcon } from '@heroicons/react/16/solid';
+import { CalendarDaysIcon } from '@heroicons/react/16/solid';
 
 interface PostHeaderProps {
 	title: string;
@@ -18,13 +18,13 @@ export default function PostHeader({
 				{title}
 			</h1>
 			<div className='flex gap-4 text-sm text-slate-500'>
-				<div className='flex gap-0.5'>
-					<Calendar />
-					{dateString}
+				<div className='flex items-center gap-0.5'>
+					<CalendarDaysIcon width={12} height={12} />
+					<span>{dateString}</span>
 				</div>
-				<div className='flex gap-0.5'>
-					<Clock />
-					{readingMinutes}분
+				<div className='flex items-center gap-0.5'>
+					<ClockIcon width={12} height={12} />
+					<span>{readingMinutes}분</span>
 				</div>
 			</div>
 		</section>

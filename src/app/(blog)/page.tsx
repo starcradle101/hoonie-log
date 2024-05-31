@@ -3,7 +3,7 @@ import Image from 'next/image';
 import Profile from '@/public/profile.jpg';
 import Github from '../components/Github';
 import Linkedin from '../components/Linkedin';
-import Mail from '../components/Mail';
+import { EnvelopeIcon } from '@heroicons/react/24/solid';
 
 const socialLinks = [
 	{
@@ -17,7 +17,7 @@ const socialLinks = [
 		text: 'Github',
 	},
 	{
-		icon: <Mail />,
+		icon: <EnvelopeIcon width={24} />,
 		href: 'mailto:dreamerdev12@gmail.com',
 		text: 'dreamerdev12@gmail.com',
 	},
