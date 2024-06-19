@@ -12,6 +12,7 @@ export async function login(formData: FormData) {
 		password: formData.get('password') as string,
 	};
 
+	// login data 포함시켜서 로직 처리 수정할 것
 	const { error } = await supabase.auth.signInWithPassword(data);
 
 	if (error) {
@@ -31,7 +32,7 @@ export async function signout() {
 		redirect('/error');
 	}
 
-	revalidatePath('/dashboard', 'layout');
+	revalidatePath('/', 'layout');
 	redirect('/login');
 }
 
