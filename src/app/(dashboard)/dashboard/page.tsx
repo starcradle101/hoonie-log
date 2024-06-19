@@ -1,5 +1,7 @@
 import { redirect } from 'next/navigation';
 import { createClient } from '@/src/utils/supabase/server';
+import Search from '../../components/Search';
+import Table from '../../components/Table';
 
 export default async function DashboardPage() {
 	const supabase = createClient();
@@ -9,13 +11,18 @@ export default async function DashboardPage() {
 		redirect('/login');
 	}
 
-	console.log(data.user);
-
 	return (
-		<section className='flex-grow p-6 md:p-12'>
-			<h1 className='text-4xl'>Dashboard</h1>
-			<p>Hello {data.user.email}</p>
-			<p>{data.user.role}</p>
+		<section>
+			<h2 className='mb-8 text-2xl font-semibold md:text-3xl'>
+				📊 블로그 통계
+			</h2>
+
+			<h2 className='mb-8 text-2xl font-semibold md:text-3xl'>
+				📝 작성한 글 목록
+			</h2>
+
+			<Search placeholder={'작성한 글 검색하기...'} />
+			<Table />
 		</section>
 	);
 }

@@ -1,9 +1,8 @@
 import { getPostBySlug, getPostSlugsFrom } from '@/src/lib/api';
 import { POSTS_PATH } from '@/src/lib/constants';
 import { markdownToHTML } from '@/src/lib/api';
-import PostHeader from '../../../components/PostHeader';
-import PostBody from '../../../components/PostBody';
-import Giscus from '../../../components/Giscus';
+import PostHeader from '@/src/app/components/PostHeader';
+import PostBody from '@/src/app/components/PostBody';
 
 export function generateStaticParams() {
 	const slugs = getPostSlugsFrom(POSTS_PATH);
@@ -19,15 +18,13 @@ export default async function Page({ params }: { params: { slug: string } }) {
 	const postContent = await markdownToHTML(postDetail.content);
 
 	return (
-		<>
+		<section className='m-auto p-6 md:max-w-5xl md:p-12'>
 			<PostHeader
 				title={title}
 				dateString={dateString}
 				readingMinutes={readingMinutes}
 			/>
 			<PostBody postContent={postContent} />
-			<div className='my-6 border-b-2 border-b-slate-200'></div>
-			<Giscus />
-		</>
+		</section>
 	);
 }

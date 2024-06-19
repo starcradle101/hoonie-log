@@ -1,7 +1,6 @@
 'use client';
-
+import Header from '../../components/Header';
 import { usePathname } from 'next/navigation';
-import SideNav from '../../components/SideNav';
 
 export default function Layout({
 	children,
@@ -9,17 +8,14 @@ export default function Layout({
 	children: React.ReactNode;
 }>) {
 	const pathname = usePathname();
-	const isCreateRoute = pathname === '/dashboard/create';
+	const isWriteRoute = pathname === '/dashboard/write';
 
 	return (
-		<div className='flex h-screen flex-col md:flex-row md:overflow-hidden'>
-			{!isCreateRoute && (
-				<div className='w-full flex-none md:w-64'>
-					<SideNav />
-				</div>
-			)}
-
-			<div className='w-full'>{children}</div>
+		<div
+			className={` m-auto h-screen ${isWriteRoute ? 'px-6 md:max-w-4xl' : 'px-6 md:max-w-3xl'}`}
+		>
+			{!isWriteRoute && <Header />}
+			{children}
 		</div>
 	);
 }

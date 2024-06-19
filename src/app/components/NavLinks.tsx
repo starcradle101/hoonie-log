@@ -8,7 +8,7 @@ const links = [
 	{ name: '홈', href: '/dashboard', icon: HomeIcon },
 	{
 		name: '새 글 작성',
-		href: '/dashboard/create',
+		href: '/dashboard/write',
 		icon: PlusIcon,
 	},
 	{ name: '작성 글 목록', href: '/dashboard/posts', icon: FolderIcon },
