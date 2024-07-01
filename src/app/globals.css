@@ -66,10 +66,7 @@
 /* Heading styles */
 .tiptap h1,
 .tiptap h2,
-.tiptap h3,
-.tiptap h4,
-.tiptap h5,
-.tiptap h6 {
+.tiptap h3 {
 	line-height: 1.1;
 	margin-top: 2.5rem;
 	word-wrap: break-word; /* 수정된 부분 */
@@ -93,10 +90,16 @@
 	font-size: 1.1rem;
 }
 
-.tiptap h4,
-.tiptap h5,
-.tiptap h6 {
-	font-size: 1rem;
+.tiptap a {
+	@apply cursor-pointer text-blue-500 hover:text-blue-700;
+}
+
+.tiptap img {
+	@apply mx-0 my-6 block h-auto max-w-full self-center;
+}
+
+.tiptap img.ProseMirror-selectednode {
+	@apply outline outline-2 outline-blue-500;
 }
 
 /* Code and preformatted text styles */
