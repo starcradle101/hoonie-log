@@ -1,7 +1,6 @@
 'use client';
 import localFont from 'next/font/local';
 import '@/src/app/globals.css';
-import SideNav from '../components/SideNav';
 
 const pretendard_var = localFont({
 	src: '../../../public/fonts/pretendard_variable.woff2',
@@ -16,10 +15,9 @@ export default function DashboardLayout({
 	return (
 		<html lang='en'>
 			<body
-				className={`${pretendard_var.className} flex h-screen flex-col antialiased md:m-auto md:flex-row`}
+				className={`${pretendard_var.className} m-auto min-h-dvh px-4 antialiased md:max-w-4xl`}
 			>
-				<SideNav />
-				<section className='flex-1 px-4'>{children}</section>
+				{children}
 			</body>
 		</html>
 	);

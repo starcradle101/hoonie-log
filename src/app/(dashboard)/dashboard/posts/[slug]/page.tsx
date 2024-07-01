@@ -18,7 +18,7 @@ export default async function Page({ params }: { params: { slug: string } }) {
 	const postContent = await markdownToHTML(postDetail.content);
 
 	return (
-		<section className='m-auto p-6 md:max-w-5xl md:p-12'>
+		<section className='m-auto py-6 md:max-w-5xl md:py-12'>
 			<PostHeader
 				title={title}
 				dateString={dateString}
