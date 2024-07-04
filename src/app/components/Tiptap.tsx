@@ -20,10 +20,6 @@ import html from 'highlight.js/lib/languages/xml';
 import Toolbar from './Toolbar';
 import { useEffect, useRef } from 'react';
 
-import { createClient } from '@/src/utils/supabase/client';
-
-const supabase = createClient();
-
 const lowlight = createLowlight();
 lowlight.register('js', js);
 lowlight.register('ts', ts);
@@ -33,7 +29,7 @@ lowlight.register('html', html);
 const Tiptap = ({ onChange, content }: any) => {
 	const editorContainerRef = useRef<HTMLDivElement>(null);
 
-	const handleChange = (newContent: string) => {
+	const handleChange = (newContent: object) => {
 		onChange(newContent);
 	};
 
@@ -65,7 +61,7 @@ const Tiptap = ({ onChange, content }: any) => {
 			},
 		},
 		onUpdate: ({ editor }) => {
-			handleChange(editor.getHTML());
+			handleChange(editor.getJSON());
 		},
 	});
 

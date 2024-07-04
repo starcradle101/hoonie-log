@@ -27,82 +27,10 @@ type Props = {
 };
 
 const Toolbar = ({ editor, content }: Props) => {
-	const groupedToolbarItems = [
-		[
-			{
-				icon: Bold,
-				action: (editor: Editor) => editor.chain().focus().toggleBold().run(),
-			},
-			{
-				icon: Italic,
-				action: (editor: Editor) => editor.chain().focus().toggleItalic().run(),
-			},
-			{
-				icon: Strikethrough,
-				action: (editor: Editor) => editor.chain().focus().toggleStrike().run(),
-			},
-			{ icon: Link, action: (editor: Editor) => setLink(editor) },
-			{
-				icon: Highlighter,
-				action: (editor: Editor) =>
-					editor.chain().focus().toggleHighlight().run(),
-			},
-		],
-		[
-			{
-				icon: Code,
-				action: (editor: Editor) => editor.chain().focus().toggleCode().run(),
-			},
-			{
-				icon: CodeSquare,
-				action: (editor: Editor) =>
-					editor.chain().focus().toggleCodeBlock().run(),
-			},
-			{
-				icon: Quote,
-				action: (editor: Editor) =>
-					editor.chain().focus().toggleBlockquote().run(),
-			},
-			{ icon: Image, action: (editor: Editor) => handleImageUpload(editor) },
-		],
-		[
-			{
-				icon: Heading1,
-				action: (editor: Editor) =>
-					editor.chain().focus().toggleHeading({ level: 1 }).run(),
-			},
-			{
-				icon: Heading2,
-				action: (editor: Editor) =>
-					editor.chain().focus().toggleHeading({ level: 1 }).run(),
-			},
-			{
-				icon: Heading3,
-				action: (editor: Editor) =>
-					editor.chain().focus().toggleHeading({ level: 1 }).run(),
-			},
-			{
-				icon: List,
-				action: (editor: Editor) =>
-					editor.chain().focus().toggleBulletList().run(),
-			},
-			{
-				icon: ListOrdered,
-				action: (editor: Editor) =>
-					editor.chain().focus().toggleOrderedList().run(),
-			},
-			{
-				icon: SeparatorHorizontal,
-				action: (editor: Editor) =>
-					editor.chain().focus().setHorizontalRule().run(),
-			},
-		],
-	];
-
 	const supabase = createClient();
 
 	const uploadImageToSupabase = async (file: File) => {
-		const { data, error } = await supabase.storage
+		const { error } = await supabase.storage
 			.from('images')
 			.upload(`public/${file.name}`, file);
 
@@ -164,13 +92,95 @@ const Toolbar = ({ editor, content }: Props) => {
 		return null;
 	}
 
+	const createToolbarItem = (
+		icon: React.ElementType,
+		action: (editor: Editor) => void,
+		isActive: (editor: Editor) => boolean
+	) => ({ icon, action, isActive });
+
+	const groupedToolbarItems = [
+		[
+			createToolbarItem(
+				Bold,
+				(editor) => editor.chain().focus().toggleBold().run(),
+				(editor) => editor.isActive('bold')
+			),
+			createToolbarItem(
+				Italic,
+				(editor) => editor.chain().focus().toggleItalic().run(),
+				(editor) => editor.isActive('italic')
+			),
+			createToolbarItem(
+				Strikethrough,
+				(editor) => editor.chain().focus().toggleStrike().run(),
+				(editor) => editor.isActive('strike')
+			),
+			createToolbarItem(Link, setLink, (editor) => editor.isActive('link')),
+			createToolbarItem(
+				Highlighter,
+				(editor) => editor.chain().focus().toggleHighlight().run(),
+				(editor) => editor.isActive('highlight')
+			),
+		],
+		[
+			createToolbarItem(
+				Code,
+				(editor) => editor.chain().focus().toggleCode().run(),
+				(editor) => editor.isActive('code')
+			),
+			createToolbarItem(
+				CodeSquare,
+				(editor) => editor.chain().focus().toggleCodeBlock().run(),
+				(editor) => editor.isActive('codeBlock')
+			),
+			createToolbarItem(
+				Quote,
+				(editor) => editor.chain().focus().toggleBlockquote().run(),
+				(editor) => editor.isActive('blockquote')
+			),
+			createToolbarItem(Image, handleImageUpload, () => false),
+		],
+		[
+			createToolbarItem(
+				Heading1,
+				(editor) => editor.chain().focus().toggleHeading({ level: 1 }).run(),
+				(editor) => editor.isActive('heading', { level: 1 })
+			),
+			createToolbarItem(
+				Heading2,
+				(editor) => editor.chain().focus().toggleHeading({ level: 2 }).run(),
+				(editor) => editor.isActive('heading', { level: 2 })
+			),
+			createToolbarItem(
+				Heading3,
+				(editor) => editor.chain().focus().toggleHeading({ level: 3 }).run(),
+				(editor) => editor.isActive('heading', { level: 3 })
+			),
+			createToolbarItem(
+				List,
+				(editor) => editor.chain().focus().toggleBulletList().run(),
+				(editor) => editor.isActive('bulletList')
+			),
+			createToolbarItem(
+				ListOrdered,
+				(editor) => editor.chain().focus().toggleOrderedList().run(),
+				(editor) => editor.isActive('orderedList')
+			),
+			createToolbarItem(
+				SeparatorHorizontal,
+				(editor) => editor.chain().focus().setHorizontalRule().run(),
+				() => false
+			),
+		],
+	];
+
 	return (
 		<div className='flex overflow-x-auto border-b-2'>
 			{groupedToolbarItems.map((group, groupIndex) => (
 				<Fragment key={groupIndex}>
 					{group.map((item, index) => (
 						<button
-							className='p-2'
+							className={`m-1 p-1 ${item.isActive(editor) ? 'rounded-md bg-green-500 text-white' : ''}`}
 							key={index}
 							onClick={(e) => {
 								e.preventDefault();
