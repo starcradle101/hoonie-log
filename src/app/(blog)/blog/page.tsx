@@ -1,9 +1,13 @@
-import { getPostAbstracts } from '@/src/lib/api';
-import PostAbstractList from '../../components/PostAbstarctList';
-import { POSTS_PATH } from '@/src/lib/constants';
+import { PostAbstract } from '@/src/interfaces/post';
+import PostAbstractList from '@/src/app/components/PostAbstractList';
 
 export default function Page() {
-	const postAbstarcts = getPostAbstracts(POSTS_PATH);
+	const dummyPosts: PostAbstract[] = Array.from({ length: 30 }, (_, i) => ({
+		title: `Item ${i + 1}`,
+		description: `Description for item ${i + 1}`,
+		createdAt: '2024. 07. 01',
+		slug: `item-${i + 1}`,
+	})); // 총 30개의 아이템 예시
 
 	return (
 		<>
@@ -13,9 +17,8 @@ export default function Page() {
 					회고부터 유용한 지식까지, 기록을 통해 발전합니다.
 				</p>
 			</section>
-			<section>
-				<PostAbstractList posts={postAbstarcts} />
-			</section>
+
+			<PostAbstractList posts={dummyPosts} />
 		</>
 	);
 }

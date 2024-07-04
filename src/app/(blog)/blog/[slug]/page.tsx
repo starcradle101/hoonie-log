@@ -1,31 +1,30 @@
-import { getPostBySlug, getPostSlugsFrom } from '@/src/lib/api';
 import { POSTS_PATH } from '@/src/lib/constants';
-import { markdownToHTML } from '@/src/lib/api';
 import PostHeader from '../../../components/PostHeader';
 import PostBody from '../../../components/PostBody';
 import Giscus from '../../../components/Giscus';
 
 export function generateStaticParams() {
-	const slugs = getPostSlugsFrom(POSTS_PATH);
-
-	return slugs.map((slug) => ({
-		slug: slug,
-	}));
+	// const slugs = getPostSlugsFrom(POSTS_PATH);
+	// return slugs.map((slug) => ({
+	// 	slug: slug,
+	// }));
 }
 
 export default async function Page({ params }: { params: { slug: string } }) {
-	const postDetail = getPostBySlug(params.slug, POSTS_PATH);
-	const { title, readingMinutes, dateString } = postDetail;
-	const postContent = await markdownToHTML(postDetail.content);
+	// const postDetail = getPostBySlug(params.slug, POSTS_PATH);
+	// const { title, readingMinutes, createdAt } = postDetail;
+	// JSON으로 변환해서 렌더링할것
+	// const postContent = await markdownToHTML(postDetail.content);
 
 	return (
 		<>
-			<PostHeader
+			{/* <PostHeader
 				title={title}
-				dateString={dateString}
+				dateString={createdAt}
 				readingMinutes={readingMinutes}
-			/>
-			<PostBody postContent={postContent} />
+			/> */}
+			{/* 변환된 코드에 맞춰서 PostBody 컴포넌트 수정할 것 */}
+			{/* <PostBody postContent={postContent} /> */}
 			<div className='my-6 border-b-2 border-b-slate-200'></div>
 			<Giscus />
 		</>

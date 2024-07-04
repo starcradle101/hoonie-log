@@ -1,18 +1,23 @@
-import { getPostAbstracts } from '@/src/lib/api';
-import PostAbstractList from '@/src/app/components/PostAbstarctList';
-import { POSTS_PATH } from '@/src/lib/constants';
+import Search from '@/src/app/components/Search';
+import PostAbstarctList from '@/src/app/components/PostAbstractList';
+
+import { PostAbstract } from '@/src/interfaces/post';
 
 export default function Page() {
-	const postAbstarcts = getPostAbstracts(POSTS_PATH);
+	const dummyPosts: PostAbstract[] = Array.from({ length: 30 }, (_, i) => ({
+		title: `Item ${i + 1}`,
+		description: `Description for item ${i + 1}`,
+		createdAt: '2024. 07. 01',
+		slug: `item-${i + 1}`,
+	})); // 총 30개의 아이템 예시
 
 	return (
 		<section className='m-auto flex h-full flex-col md:max-w-3xl'>
 			<h1 className='my-8 text-2xl font-semibold md:text-4xl'>
 				작성한 글 목록
 			</h1>
-			<div>작성된 글을 확인할 수 있는 페이지입니다</div>
-			<div>최근 수정된 글</div>
-			<PostAbstractList posts={postAbstarcts} />
+			<Search placeholder={'글 검색하기...'} />
+			<PostAbstarctList posts={dummyPosts} />
 		</section>
 	);
 }

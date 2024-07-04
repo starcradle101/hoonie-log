@@ -19,7 +19,7 @@ export default function DashboardLayout({
 				className={`${pretendard_var.className} flex h-screen flex-col antialiased md:m-auto md:flex-row`}
 			>
 				<SideNav />
-				<section className='flex-1 px-4'>{children}</section>
+				<section className='flex-1 overflow-y-auto px-4'>{children}</section>
 			</body>
 		</html>
 	);

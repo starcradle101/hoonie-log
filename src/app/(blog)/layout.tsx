@@ -25,7 +25,9 @@ export default function BlogRootLayout({
 				className={`${pretendard_var.className} m-auto flex h-screen flex-col px-5 antialiased md:max-w-3xl`}
 			>
 				<Header></Header>
-				<main className={`${ridiBatang.className} flex-1`}>{children}</main>
+				<main className={`${ridiBatang.className} flex flex-1 flex-col`}>
+					{children}
+				</main>
 				<Footer></Footer>
 			</body>
 		</html>
