@@ -1,5 +1,5 @@
 import Search from '@/src/app/components/Search';
-import PostAbstarctList from '@/src/app/components/PostAbstractList';
+import PostAbstractListWrapper from '@/src/app/components/PostAbstarctListWrapper';
 
 export default function Page() {
 	return (
@@ -8,7 +8,7 @@ export default function Page() {
 				작성한 글 목록
 			</h1>
 			<Search placeholder={'글 검색하기...'} />
-			<PostAbstarctList />
+			<PostAbstractListWrapper />
 		</section>
 	);
 }

@@ -1,4 +1,4 @@
-import PostAbstractList from '@/src/app/components/PostAbstractList';
+import PostAbstractListWrapper from '../../components/PostAbstarctListWrapper';
 
 export default async function Page() {
 	return (
@@ -10,7 +10,7 @@ export default async function Page() {
 				</p>
 			</section>
 
-			<PostAbstractList />
+			<PostAbstractListWrapper />
 		</>
 	);
 }

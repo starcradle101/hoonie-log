@@ -37,7 +37,6 @@ export default function Page() {
 		const result = await createPostData(title, description, content);
 
 		if (result.success) {
-			console.log('Post created successfully:', result.data);
 			router.push('/dashboard');
 		} else {
 			console.error('Error creating post:', result.error);
@@ -56,8 +55,6 @@ export default function Page() {
 		setIsModalOpen(false);
 		router.back();
 	};
-
-	console.log({ title, description, content });
 
 	return (
 		<div className='m-auto flex h-full flex-col md:max-w-3xl'>
