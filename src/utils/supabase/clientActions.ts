@@ -1,7 +1,7 @@
 import readingTime from 'reading-time';
 import dayjs from 'dayjs';
 import { supabaseClient } from './client';
-import { Post, PostAbstract } from '@/src/interfaces/post';
+import { Post } from '@/src/interfaces/post';
 import { customSlugify } from '@/src/lib/api';
 import { v4 as uuidv4 } from 'uuid';
 
@@ -82,25 +82,56 @@ export const deletePostData = async (id: number) => {
 	return { success: true };
 };
 
-export const fetchPostAbstracts = async (
+export async function fetchPostAbstracts(
 	page: number,
-	itemsPerPage: number
-): Promise<{ posts: PostAbstract[]; totalPosts: number } | null> => {
-	const from = (page - 1) * itemsPerPage;
-	const to = page * itemsPerPage - 1;
+	itemsPerPage: number,
+	query?: string
+) {
+	const start = (page - 1) * itemsPerPage;
+	const end = start + itemsPerPage - 1;
 
-	const { data, error, count } = await supabaseClient
+	let queryBuilder = supabaseClient
 		.from('posts')
-		.select('id, slug, title, description, created_at', { count: 'exact' })
-		.range(from, to);
+		.select('*', { count: 'exact' });
 
-	if (error || !data) {
-		console.error('게시글 불러오기 실패:', error || 'No data found');
+	if (query && query.trim() !== '') {
+		queryBuilder = queryBuilder
+			.ilike('title', `%${query}%`)
+			.or(`description.ilike.%${query}%`);
+	}
+
+	let { count, error: countError } = await queryBuilder;
+	if (countError) {
+		console.error(countError);
+		return { posts: [], totalPosts: 0 };
+	}
+
+	queryBuilder = queryBuilder.range(start, end);
+	let { data: posts, error } = await queryBuilder;
+
+	if (error) {
+		console.error(error);
+		return { posts: [], totalPosts: 0 };
+	}
+
+	return { posts: posts || [], totalPosts: count || 0 };
+}
+
+export async function fetchLatestPost() {
+	const { data, error } = await supabaseClient
+		.from('posts')
+		.select('*')
+		.order('created_at', { ascending: false })
+		.limit(1)
+		.single();
+
+	if (error) {
+		console.error(error);
 		return null;
 	}
 
-	return { posts: data, totalPosts: count || 0 };
-};
+	return data;
+}
 
 export const getPostSlugs = async () => {
 	const { data, error } = await supabaseClient.from('posts').select('slug');

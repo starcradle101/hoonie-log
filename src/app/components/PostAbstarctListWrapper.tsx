@@ -3,10 +3,16 @@ import { Suspense } from 'react';
 import PostAbstractList from './PostAbstractList';
 import Loading from './Loading';
 
-export default function PostAbstractListWrapper() {
+export default function PostAbstractListWrapper({
+	query,
+	currentPage,
+}: {
+	query: string;
+	currentPage: number;
+}) {
 	return (
 		<Suspense fallback={<Loading />}>
-			<PostAbstractList />
+			<PostAbstractList query={query} currentPage={currentPage} />
 		</Suspense>
 	);
 }

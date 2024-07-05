@@ -1,6 +1,6 @@
 'use client';
 import { useState, useEffect } from 'react';
-import { useSearchParams, useRouter, usePathname } from 'next/navigation';
+import { useRouter, usePathname, useSearchParams } from 'next/navigation';
 import { ArrowLeftIcon, ArrowRightIcon } from 'lucide-react';
 import PostListItem from './PostListItem';
 import { PostAbstract } from '@/src/interfaces/post';
@@ -8,24 +8,24 @@ import { fetchPostAbstracts } from '@/src/utils/supabase/clientActions';
 
 const ITEMS_PER_PAGE = 10;
 
-export default function PostAbstractList() {
+export default function PostAbstractList({
+	query,
+	currentPage,
+}: {
+	query: string;
+	currentPage: number;
+}) {
 	const searchParams = useSearchParams();
 	const router = useRouter();
 	const pathname = usePathname();
 
-	const currentPageFromUrl = Number(searchParams.get('page')) || 1;
-	const [currentPage, setCurrentPage] = useState(currentPageFromUrl);
 	const [posts, setPosts] = useState<PostAbstract[]>([]);
 	const [totalPosts, setTotalPosts] = useState<number>(0);
 	const [loading, setLoading] = useState<boolean>(true);
 
-	useEffect(() => {
-		setCurrentPage(currentPageFromUrl);
-	}, [currentPageFromUrl]);
-
-	const fetchData = async (page: number) => {
+	const fetchData = async (page: number, query: string) => {
 		setLoading(true);
-		const data = await fetchPostAbstracts(page, ITEMS_PER_PAGE);
+		const data = await fetchPostAbstracts(page, ITEMS_PER_PAGE, query);
 
 		if (data) {
 			setPosts(data.posts);
@@ -36,20 +36,20 @@ export default function PostAbstractList() {
 	};
 
 	useEffect(() => {
-		fetchData(currentPage);
-	}, [currentPage]);
+		fetchData(currentPage, query);
+	}, [currentPage, query]);
 
 	const totalPages = Math.ceil(totalPosts / ITEMS_PER_PAGE);
 
 	const handlePageChange = (page: number) => {
+		if (page < 1 || page > totalPages) return;
 		const params = new URLSearchParams(searchParams.toString());
 		params.set('page', page.toString());
 		router.replace(`${pathname}?${params.toString()}`);
-		setCurrentPage(page);
 	};
 
 	const handlePostDeleted = () => {
-		fetchData(currentPage);
+		fetchData(currentPage, query);
 	};
 
 	if (loading) {
@@ -57,18 +57,24 @@ export default function PostAbstractList() {
 	}
 
 	return (
-		<div className='flex h-auto w-full flex-1 flex-col items-center'>
-			<ul className='mb-5 w-full list-none'>
-				{posts.map((item, index) => (
-					<li key={index} className='my-1'>
-						<PostListItem post={item} onPostDeleted={handlePostDeleted} />
+		<div className='flex h-auto w-full flex-1 flex-col items-center pb-4'>
+			<ul className='mb-2 w-full list-none'>
+				{posts.length === 0 ? (
+					<li className='m-auto mt-0 text-center font-medium'>
+						검색 결과를 찾을 수 없습니다
 					</li>
-				))}
+				) : (
+					posts.map((item, index) => (
+						<li key={index} className='my-1'>
+							<PostListItem post={item} onPostDeleted={handlePostDeleted} />
+						</li>
+					))
+				)}
 			</ul>
 			<div className='flex flex-1 items-end justify-center gap-2'>
 				<button
 					onClick={() => handlePageChange(currentPage - 1)}
-					disabled={currentPage === 1}
+					disabled={currentPage === 1 || totalPages === 0}
 					className='px-2 py-1 disabled:opacity-50'
 				>
 					<ArrowLeftIcon width={24} height={24} />
@@ -79,6 +85,7 @@ export default function PostAbstractList() {
 							<button
 								key={pageNumber}
 								onClick={() => handlePageChange(pageNumber)}
+								disabled={totalPages === 0}
 								className={`px-2 py-1 ${
 									pageNumber === currentPage
 										? ' text-blue-500 underline'
@@ -92,7 +99,7 @@ export default function PostAbstractList() {
 				</div>
 				<button
 					onClick={() => handlePageChange(currentPage + 1)}
-					disabled={currentPage === totalPages}
+					disabled={currentPage === totalPages || totalPages === 0}
 					className='px-2 py-1 disabled:opacity-50'
 				>
 					<ArrowRightIcon width={24} height={24} />

@@ -4,6 +4,7 @@ import Profile from '@/public/profile.jpg';
 import Github from '../components/icon/Github';
 
 import { Mail, Linkedin } from 'lucide-react';
+import LatestPost from '../components/LatestPost';
 
 const socialLinks = [
 	{
@@ -63,7 +64,10 @@ export default function Home() {
 					</ul>
 				</div>
 			</section>
-			<h2 className='mb-8 text-2xl md:text-3xl'>📄 최근 포스트</h2>
+			<section className='flex flex-col'>
+				<h2 className='mb-8 text-2xl md:text-3xl'>📄 최근 포스트</h2>
+				<LatestPost />
+			</section>
 		</>
 	);
 }
