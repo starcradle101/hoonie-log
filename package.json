@@ -65,6 +65,7 @@
 		"remark-rehype": "^11.1.0",
 		"shiki": "^1.5.1",
 		"unified": "^11.0.4",
+		"use-debounce": "^10.0.1",
 		"uuid": "^10.0.0"
 	},
 	"devDependencies": {
