@@ -1,5 +1,4 @@
 'use client';
-
 import { usePathname } from 'next/navigation';
 import { PostAbstract } from '@/src/interfaces/post';
 import { useState } from 'react';
@@ -50,7 +49,7 @@ export default function PostListItem({ post }: PostAbstractItemProps) {
 
 				<div className='mt-2 flex justify-between text-sm text-slate-400'>
 					<p>{post.description}</p>
-					<p>{post.createdAt}</p>
+					<p>{post.created_at}</p>
 				</div>
 			</article>
 
