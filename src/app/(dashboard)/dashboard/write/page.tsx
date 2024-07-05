@@ -1,5 +1,5 @@
 'use client';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, Suspense } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import Tiptap from '@/src/app/components/Tiptap';
 import Modal from '@/src/app/components/Modal';
@@ -10,7 +10,7 @@ import {
 } from '@/src/utils/supabase/clientActions';
 import { Post } from '@/src/interfaces/post';
 
-export default function Page() {
+function WritePageContent() {
 	const [title, setTitle] = useState<string>('');
 	const [description, setDescription] = useState<string>('');
 	const [content, setContent] = useState<string>('');
@@ -153,5 +153,13 @@ export default function Page() {
 				</p>
 			</Modal>
 		</div>
+	);
+}
+
+export default function Page() {
+	return (
+		<Suspense fallback={<div>Loading...</div>}>
+			<WritePageContent />
+		</Suspense>
 	);
 }
