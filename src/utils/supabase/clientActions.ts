@@ -36,6 +36,37 @@ export const createPostData = async (
 	return { success: true, data };
 };
 
+export const updatePostData = async (
+	slug: string,
+	title: string,
+	description: string,
+	content: string
+) => {
+	const updated_at = dayjs().locale('ko').format('YYYY-MM-DD');
+	const reading_time = Math.ceil(readingTime(content).minutes);
+
+	const postData = {
+		title,
+		description,
+		content,
+		updated_at,
+		reading_time,
+	};
+
+	const { data, error } = await supabaseClient
+		.from('posts')
+		.update(postData)
+		.eq('slug', slug)
+		.select();
+
+	if (error) {
+		console.error('Error updating post:', error);
+		return { success: false, error };
+	}
+
+	return { success: true, data };
+};
+
 export const fetchPostAbstracts = async (
 	page: number,
 	itemsPerPage: number
