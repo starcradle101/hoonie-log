@@ -36,7 +36,10 @@ export default function PostListItem({
 		<>
 			<article className='mb-4 border-b-2 border-slate-50'>
 				<div className='flex justify-between'>
-					<Link className='text-lg' href={`${pathname}/` + post.slug}>
+					<Link
+						className='text-lg'
+						href={`${pathname}/` + encodeURIComponent(post.slug)}
+					>
 						{post.title}
 					</Link>
 					{isDashboard && (
