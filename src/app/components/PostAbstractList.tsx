@@ -16,34 +16,40 @@ export default function PostAbstractList() {
 	const currentPageFromUrl = Number(searchParams.get('page')) || 1;
 	const [currentPage, setCurrentPage] = useState(currentPageFromUrl);
 	const [posts, setPosts] = useState<PostAbstract[]>([]);
+	const [totalPosts, setTotalPosts] = useState<number>(0);
 	const [loading, setLoading] = useState<boolean>(true);
 
 	useEffect(() => {
 		setCurrentPage(currentPageFromUrl);
 	}, [currentPageFromUrl]);
 
+	const fetchData = async (page: number) => {
+		setLoading(true);
+		const data = await fetchPostAbstracts(page, ITEMS_PER_PAGE);
+
+		if (data) {
+			setPosts(data.posts);
+			setTotalPosts(data.totalPosts);
+		}
+
+		setLoading(false);
+	};
+
 	useEffect(() => {
-		const fetchAbstracts = async (page: number) => {
-			setLoading(true);
-			const data = await fetchPostAbstracts(page, ITEMS_PER_PAGE);
-
-			if (data) {
-				setPosts(data);
-			}
-
-			setLoading(false);
-		};
-
-		fetchAbstracts(currentPage);
+		fetchData(currentPage);
 	}, [currentPage]);
 
-	const totalPages = Math.ceil(posts.length / ITEMS_PER_PAGE);
+	const totalPages = Math.ceil(totalPosts / ITEMS_PER_PAGE);
 
 	const handlePageChange = (page: number) => {
 		const params = new URLSearchParams(searchParams.toString());
 		params.set('page', page.toString());
 		router.replace(`${pathname}?${params.toString()}`);
 		setCurrentPage(page);
+	};
+
+	const handlePostDeleted = () => {
+		fetchData(currentPage);
 	};
 
 	if (loading) {
@@ -55,7 +61,7 @@ export default function PostAbstractList() {
 			<ul className='mb-5 w-full list-none'>
 				{posts.map((item, index) => (
 					<li key={index} className='my-1'>
-						<PostListItem post={item} />
+						<PostListItem post={item} onPostDeleted={handlePostDeleted} />
 					</li>
 				))}
 			</ul>

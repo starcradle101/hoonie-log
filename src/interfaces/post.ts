@@ -11,4 +11,4 @@ export type Post = {
 export type PostAbstract = Pick<
 	Post,
 	'title' | 'description' | 'created_at' | 'slug'
->;
+> & { id: number };

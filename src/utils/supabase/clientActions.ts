@@ -67,24 +67,35 @@ export const updatePostData = async (
 	return { success: true, data };
 };
 
+export const deletePostData = async (id: number) => {
+	const { error } = await supabaseClient.from('posts').delete().eq('id', id);
+
+	if (error) {
+		console.error('게시글 삭제에 실패했습니다:', error);
+		return { success: false, error };
+	}
+
+	return { success: true };
+};
+
 export const fetchPostAbstracts = async (
 	page: number,
 	itemsPerPage: number
-): Promise<PostAbstract[] | null> => {
+): Promise<{ posts: PostAbstract[]; totalPosts: number } | null> => {
 	const from = (page - 1) * itemsPerPage;
 	const to = page * itemsPerPage - 1;
 
-	const { data, error } = await supabaseClient
+	const { data, error, count } = await supabaseClient
 		.from('posts')
-		.select('slug, title, description, created_at')
+		.select('id, slug, title, description, created_at', { count: 'exact' })
 		.range(from, to);
 
-	if (error || !data || data.length === 0) {
+	if (error || !data) {
 		console.error('게시글 불러오기 실패:', error || 'No data found');
 		return null;
 	}
 
-	return data;
+	return { posts: data, totalPosts: count || 0 };
 };
 
 export const getPostSlugs = async () => {
