@@ -72,7 +72,10 @@ export const getPostFromSlug = async (slug: string) => {
 		.from('posts')
 		.select('*')
 		.eq('slug', slug)
-		.single();
+		.limit(1)
+		.maybeSingle();
+
+	console.log(data);
 
 	if (error || !data) {
 		console.error('Error fetching post:', error || 'No data found');
