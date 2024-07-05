@@ -1,58 +1,9 @@
-import dayjs from 'dayjs';
-import { Post, PostAbstract } from '@/src/interfaces/post';
+export const customSlugify = (text: string): string => {
+	let filteredText = text
+		.replace(/[^ㄱ-ㅎㅏ-ㅣ가-힣a-zA-Z0-9\s]/g, '')
+		.toLowerCase();
 
-// 게시글 상세 정보 불러오기
-// export function getPostBySlug(slug: string, postDirectory: string) {
-// 	const realSlug = slug.replace(/\.md$/, '');
-// 	const fullPath = join(postDirectory, `${realSlug}.md`);
-// 	const postContents = fs.readFileSync(fullPath, 'utf8');
-// 	const { data, content } = matter(postContents);
-// 	const readingMinutes = Math.ceil(readingTime(content).minutes);
-// 	const dateString = dayjs(data.date).locale('ko').format('YYYY년 MM월 DD일');
-// 	return {
-// 		...data,
-// 		readingMinutes,
-// 		createdAt,
-//     updatedAt
-// 		slug: realSlug,
-// 		content,
-// 	} as Post;
-// }
+	filteredText = filteredText.replace(/\s+/g, '-');
 
-// 포스트 요약 정보 (url, slug, description)만 불러오기
-// export function getPostAbstracts(postDirectory: string) {
-// 	const files = getPostSlugsFrom(postDirectory);
-// 	const postAbstracts: PostAbstract[] = [];
-
-// 	files.forEach((file) => {
-// 		const post = getPostBySlug(file, postDirectory);
-// 		const { title, description, dateString, slug } = post;
-
-// 		postAbstracts.push({
-// 			title,
-// 			description,
-// 			dateString,
-// 			slug,
-// 		});
-// 	});
-
-// 	return postAbstracts;
-// }
-
-// 마크다운 콘텐츠를 HTML 파일로 변환하기
-// export async function markdownToHTML(content: string) {
-// 	const htmlContent = await unified()
-// 		.use(remarkParse)
-// 		.use(remarkGfm)
-// 		.use(remarkGithub)
-// 		.use(remarkBreaks)
-// 		.use(remarkRehype)
-// 		.use(rehypeFormat)
-// 		.use(rehypeSlug)
-// 		.use(rehypeAutolinkHeadings)
-// 		.use(rehypePrettyCode)
-// 		.use(rehypeStringify)
-// 		.process(content);
-
-// 	return htmlContent.toString();
-// }
+	return filteredText;
+};
