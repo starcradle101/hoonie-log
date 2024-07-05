@@ -1,7 +1,7 @@
 import { createServerClient, type CookieOptions } from '@supabase/ssr';
 import { cookies } from 'next/headers';
 
-function createClient() {
+export function createClient() {
 	const cookieStore = cookies();
 
 	return createServerClient(
@@ -26,5 +26,3 @@ function createClient() {
 		}
 	);
 }
-
-export const supabaseServer = createClient();
