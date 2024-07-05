@@ -1,6 +1,17 @@
+import Search from '../../components/Search';
 import PostAbstractListWrapper from '../../components/PostAbstarctListWrapper';
 
-export default async function Page() {
+export default function Page({
+	searchParams,
+}: {
+	searchParams?: {
+		query?: string;
+		page?: string;
+	};
+}) {
+	const query = searchParams?.query || '';
+	const currentPage = Number(searchParams?.page) || 1;
+
 	return (
 		<>
 			<section className='mb-4 border-b-2 border-slate-300'>
@@ -9,8 +20,8 @@ export default async function Page() {
 					회고부터 유용한 지식까지, 기록을 통해 발전합니다.
 				</p>
 			</section>
-
-			<PostAbstractListWrapper />
+			<Search placeholder={'글 검색하기...'} />
+			<PostAbstractListWrapper query={query} currentPage={currentPage} />
 		</>
 	);
 }

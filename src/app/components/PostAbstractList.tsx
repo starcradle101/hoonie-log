@@ -1,6 +1,6 @@
 'use client';
 import { useState, useEffect } from 'react';
-import { useSearchParams, useRouter, usePathname } from 'next/navigation';
+import { useRouter, usePathname, useSearchParams } from 'next/navigation';
 import { ArrowLeftIcon, ArrowRightIcon } from 'lucide-react';
 import PostListItem from './PostListItem';
 import { PostAbstract } from '@/src/interfaces/post';
@@ -8,24 +8,24 @@ import { fetchPostAbstracts } from '@/src/utils/supabase/clientActions';
 
 const ITEMS_PER_PAGE = 10;
 
-export default function PostAbstractList() {
+export default function PostAbstractList({
+	query,
+	currentPage,
+}: {
+	query: string;
+	currentPage: number;
+}) {
 	const searchParams = useSearchParams();
 	const router = useRouter();
 	const pathname = usePathname();
 
-	const currentPageFromUrl = Number(searchParams.get('page')) || 1;
-	const [currentPage, setCurrentPage] = useState(currentPageFromUrl);
 	const [posts, setPosts] = useState<PostAbstract[]>([]);
 	const [totalPosts, setTotalPosts] = useState<number>(0);
 	const [loading, setLoading] = useState<boolean>(true);
 
-	useEffect(() => {
-		setCurrentPage(currentPageFromUrl);
-	}, [currentPageFromUrl]);
-
-	const fetchData = async (page: number) => {
+	const fetchData = async (page: number, query: string) => {
 		setLoading(true);
-		const data = await fetchPostAbstracts(page, ITEMS_PER_PAGE);
+		const data = await fetchPostAbstracts(page, ITEMS_PER_PAGE, query);
 
 		if (data) {
 			setPosts(data.posts);
@@ -36,8 +36,8 @@ export default function PostAbstractList() {
 	};
 
 	useEffect(() => {
-		fetchData(currentPage);
-	}, [currentPage]);
+		fetchData(currentPage, query);
+	}, [currentPage, query]);
 
 	const totalPages = Math.ceil(totalPosts / ITEMS_PER_PAGE);
 
@@ -45,11 +45,10 @@ export default function PostAbstractList() {
 		const params = new URLSearchParams(searchParams.toString());
 		params.set('page', page.toString());
 		router.replace(`${pathname}?${params.toString()}`);
-		setCurrentPage(page);
 	};
 
 	const handlePostDeleted = () => {
-		fetchData(currentPage);
+		fetchData(currentPage, query);
 	};
 
 	if (loading) {
