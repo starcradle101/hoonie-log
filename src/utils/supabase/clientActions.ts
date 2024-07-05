@@ -85,23 +85,29 @@ export const deletePostData = async (id: number) => {
 export async function fetchPostAbstracts(
 	page: number,
 	itemsPerPage: number,
-	query: string
+	query?: string
 ) {
 	const start = (page - 1) * itemsPerPage;
 	const end = start + itemsPerPage - 1;
 
 	let queryBuilder = supabaseClient
 		.from('posts')
-		.select('*', { count: 'exact' })
-		.range(start, end);
+		.select('*', { count: 'exact' });
 
-	if (query) {
+	if (query && query.trim() !== '') {
 		queryBuilder = queryBuilder
 			.ilike('title', `%${query}%`)
 			.or(`description.ilike.%${query}%`);
 	}
 
-	let { data: posts, error, count } = await queryBuilder;
+	let { count, error: countError } = await queryBuilder;
+	if (countError) {
+		console.error(countError);
+		return { posts: [], totalPosts: 0 };
+	}
+
+	queryBuilder = queryBuilder.range(start, end);
+	let { data: posts, error } = await queryBuilder;
 
 	if (error) {
 		console.error(error);
@@ -109,6 +115,22 @@ export async function fetchPostAbstracts(
 	}
 
 	return { posts: posts || [], totalPosts: count || 0 };
+}
+
+export async function fetchLatestPost() {
+	const { data, error } = await supabaseClient
+		.from('posts')
+		.select('*')
+		.order('created_at', { ascending: false })
+		.limit(1)
+		.single();
+
+	if (error) {
+		console.error(error);
+		return null;
+	}
+
+	return data;
 }
 
 export const getPostSlugs = async () => {
