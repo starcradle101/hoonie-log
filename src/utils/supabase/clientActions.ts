@@ -75,10 +75,15 @@ export const getPostFromSlug = async (slug: string) => {
 		.limit(1)
 		.maybeSingle();
 
-	console.log(data);
+	console.log('Data fetched for slug:', slug, data);
 
-	if (error || !data) {
-		console.error('Error fetching post:', error || 'No data found');
+	if (error) {
+		console.error('Error fetching post:', error.message);
+		return null;
+	}
+
+	if (!data) {
+		console.error('No data found for slug:', slug);
 		return null;
 	}
 
