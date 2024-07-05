@@ -2,23 +2,33 @@
 import { usePathname } from 'next/navigation';
 import { PostAbstract } from '@/src/interfaces/post';
 import { useState } from 'react';
+import { deletePostData } from '@/src/utils/supabase/clientActions';
 import Link from 'next/link';
 import Modal from './Modal';
 
 interface PostAbstractItemProps {
 	post: PostAbstract;
+	onPostDeleted: () => void;
 }
 
-export default function PostListItem({ post }: PostAbstractItemProps) {
+export default function PostListItem({
+	post,
+	onPostDeleted,
+}: PostAbstractItemProps) {
 	const pathname = usePathname();
 	const isDashboard = pathname.startsWith('/dashboard');
 	const [isModalOpen, setIsModalOpen] = useState(false);
 
 	const openModal = () => setIsModalOpen(true);
 	const closeModal = () => setIsModalOpen(false);
-	const deletePost = () => {
-		// 여기에 삭제 로직 추가
-		console.log('게시글 삭제 완료');
+	const deletePost = async () => {
+		const result = await deletePostData(post.id);
+		if (result.success) {
+			console.log('게시글 삭제 완료');
+			onPostDeleted();
+		} else {
+			console.error('Error deleting post:', result.error);
+		}
 		closeModal();
 	};
 
