@@ -3,7 +3,7 @@ import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import Tiptap from '@/src/app/components/Tiptap';
 import Modal from '@/src/app/components/Modal';
-import { createPost } from '@/src/lib/api';
+import { createPostData } from '@/src/utils/supabase/clientActions';
 
 interface ContentType {
 	title: string;
@@ -32,10 +32,16 @@ export default function Page() {
 		setContent(reason);
 	};
 
-	const handleSubmit = (e: React.FormEvent) => {
+	const handleSubmit = async (e: React.FormEvent) => {
 		e.preventDefault();
-		const newPost = createPost(title, description, content);
-		console.log(newPost);
+		const result = await createPostData(title, description, content);
+
+		if (result.success) {
+			console.log('Post created successfully:', result.data);
+			router.push('/dashboard');
+		} else {
+			console.error('Error creating post:', result.error);
+		}
 	};
 
 	const openModal = () => {
