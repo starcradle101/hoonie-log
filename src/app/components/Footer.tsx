@@ -1,6 +1,6 @@
-import Github from './Github';
-import Linkedin from './Linkedin';
-import Authentication from './Authentication';
+import Github from './icon/Github';
+import Linkedin from './icon/Linkedin';
+import Authentication from './icon/Authentication';
 
 export default function Footer() {
 	return (

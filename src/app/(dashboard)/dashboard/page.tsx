@@ -1,6 +1,5 @@
 import { redirect } from 'next/navigation';
 import { createClient } from '@/src/utils/supabase/server';
-import SignOut from '../components/SignOut';
 
 export default async function DashboardPage() {
 	const supabase = createClient();
@@ -10,14 +9,10 @@ export default async function DashboardPage() {
 		redirect('/login');
 	}
 
-	console.log(data.user);
-
 	return (
-		<>
-			<p>Hello {data.user.email}</p>
-			<p>{data.user.role}</p>
-			<p>여기는 관리자 대시보드입니다</p>
-			<SignOut />
-		</>
+		<section className='m-auto flex h-full flex-col md:max-w-3xl'>
+			<h1 className='my-8 text-2xl font-semibold md:text-4xl'>블로그 통계</h1>
+			<span>추가 예정</span>
+		</section>
 	);
 }

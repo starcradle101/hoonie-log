@@ -1,17 +1,13 @@
 export type Post = {
 	slug: string;
 	title: string;
-	date: string;
 	description: string;
-	ogImage: {
-		url: string;
-	};
-	readingMinutes: number;
-	dateString: string;
-	content: string;
+	content: object;
+	createdAt: string;
+	updatedAt: string;
 };
 
 export type PostAbstract = Pick<
 	Post,
-	'title' | 'description' | 'dateString' | 'slug'
+	'title' | 'description' | 'createdAt' | 'slug'
 >;
