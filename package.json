@@ -40,6 +40,7 @@
 		"@tiptap/pm": "^2.4.0",
 		"@tiptap/react": "^2.4.0",
 		"@tiptap/starter-kit": "^2.4.0",
+		"@types/uuid": "^10.0.0",
 		"dayjs": "^1.11.11",
 		"gray-matter": "^4.0.3",
 		"highlight.js": "^11.9.0",
@@ -63,7 +64,8 @@
 		"remark-parse": "^11.0.0",
 		"remark-rehype": "^11.1.0",
 		"shiki": "^1.5.1",
-		"unified": "^11.0.4"
+		"unified": "^11.0.4",
+		"uuid": "^10.0.0"
 	},
 	"devDependencies": {
 		"@commitlint/cli": "^19.3.0",
