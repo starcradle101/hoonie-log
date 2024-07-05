@@ -1,7 +1,7 @@
 'use client';
 import { Fragment, useCallback } from 'react';
 import { type Editor } from '@tiptap/react';
-import { createClient } from '@/src/utils/supabase/client';
+import { supabaseClient } from '@/src/utils/supabase/client';
 
 import {
 	Bold,
@@ -27,10 +27,8 @@ type Props = {
 };
 
 const Toolbar = ({ editor, content }: Props) => {
-	const supabase = createClient();
-
 	const uploadImageToSupabase = async (file: File) => {
-		const { error } = await supabase.storage
+		const { error } = await supabaseClient.storage
 			.from('images')
 			.upload(`public/${file.name}`, file);
 
@@ -39,7 +37,7 @@ const Toolbar = ({ editor, content }: Props) => {
 			return null;
 		}
 
-		const publicUrl = supabase.storage
+		const publicUrl = supabaseClient.storage
 			.from('images')
 			.getPublicUrl(`public/${file.name}`);
 

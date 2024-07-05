@@ -1,6 +1,6 @@
 import HoonieLogo from '../../components/icon/HoonieLogo';
 import Link from 'next/link';
-import { login } from '@/src/utils/supabase/actions';
+import { login } from '@/src/utils/supabase/serverActions';
 
 export default async function LoginPage() {
 	return (
