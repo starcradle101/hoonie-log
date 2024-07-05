@@ -36,10 +36,7 @@ export default function PostListItem({
 		<>
 			<article className='mb-4 border-b-2 border-slate-50'>
 				<div className='flex justify-between'>
-					<Link
-						className='text-lg'
-						href={`${pathname}/` + encodeURIComponent(post.slug)}
-					>
+					<Link className='text-lg' href={`${pathname}/` + post.slug}>
 						{post.title}
 					</Link>
 					{isDashboard && (
@@ -55,7 +52,7 @@ export default function PostListItem({
 							</button>
 							<Link
 								className='rounded-md border-sky-500 bg-sky-500 px-2 py-1 text-sm font-medium text-white hover:bg-sky-300'
-								href={`/dashboard/write?slug=${encodeURIComponent(post.slug)}`}
+								href={`/dashboard/write?slug=${post.slug}`}
 							>
 								수정
 							</Link>
