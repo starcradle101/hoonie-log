@@ -9,6 +9,9 @@ export const createPostData = async (
 	content: string
 ) => {
 	const slug = encodeURIComponent(title);
+	console.log('인코딩된 slug: ', slug);
+	const decodedSlug = decodeURIComponent(slug);
+	console.log('디코딩된 slug: ', decodedSlug);
 	const created_at = dayjs().locale('ko').format('YYYY-MM-DD');
 	const updated_at = created_at;
 	const reading_time = Math.ceil(readingTime(content).minutes);
@@ -110,6 +113,7 @@ export const getPostSlugs = async () => {
 };
 
 export const getPostFromSlug = async (slug: string) => {
+	console.log(slug);
 	const { data, error } = await supabaseClient
 		.from('posts')
 		.select('*')
