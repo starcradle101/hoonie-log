@@ -3,12 +3,12 @@ import PostHeader from '../../../components/PostHeader';
 import PostBody from '../../../components/PostBody';
 import Giscus from '../../../components/Giscus';
 
-// export function generateStaticParams() {
-// const slugs = getPostSlugsFrom(POSTS_PATH);
-// return slugs.map((slug) => ({
-// 	slug: slug,
-// }));
-// }
+export function generateStaticParams() {
+	// const slugs = getPostSlugsFrom(POSTS_PATH);
+	// return slugs.map((slug) => ({
+	// 	slug: slug,
+	// }));
+}
 
 export default async function Page({ params }: { params: { slug: string } }) {
 	// JSON으로 변환해서 렌더링할것
