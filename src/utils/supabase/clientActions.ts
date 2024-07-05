@@ -48,8 +48,8 @@ export const fetchPostAbstracts = async (
 		.select('slug, title, description, created_at')
 		.range(from, to);
 
-	if (error) {
-		console.error('게시글 불러오기 실패:', error);
+	if (error || !data || data.length === 0) {
+		console.error('게시글 불러오기 실패:', error || 'No data found');
 		return null;
 	}
 
@@ -74,11 +74,10 @@ export const getPostFromSlug = async (slug: string) => {
 		.eq('slug', slug)
 		.single();
 
-	if (error) {
-		console.error('오류가 발생했습니다:', error);
+	if (error || !data) {
+		console.error('Error fetching post:', error || 'No data found');
 		return null;
 	}
 
-	console.log(data);
 	return data;
 };
