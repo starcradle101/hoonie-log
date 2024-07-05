@@ -1,6 +1,6 @@
 import NavLinks from './NavLinks';
 import Link from 'next/link';
-import { signout } from '@/src/utils/supabase/actions';
+import { signout } from '@/src/utils/supabase/serverActions';
 import { PowerIcon } from 'lucide-react';
 import HoonieLogo from './icon/HoonieLogo';
 
