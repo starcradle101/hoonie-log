@@ -1,14 +1,6 @@
-import { PostAbstract } from '@/src/interfaces/post';
 import PostAbstractList from '@/src/app/components/PostAbstractList';
 
-export default function Page() {
-	const dummyPosts: PostAbstract[] = Array.from({ length: 30 }, (_, i) => ({
-		title: `Item ${i + 1}`,
-		description: `Description for item ${i + 1}`,
-		createdAt: '2024. 07. 01',
-		slug: `item-${i + 1}`,
-	})); // 총 30개의 아이템 예시
-
+export default async function Page() {
 	return (
 		<>
 			<section className='mb-4 border-b-2 border-slate-300'>
@@ -18,7 +10,7 @@ export default function Page() {
 				</p>
 			</section>
 
-			<PostAbstractList posts={dummyPosts} />
+			<PostAbstractList />
 		</>
 	);
 }

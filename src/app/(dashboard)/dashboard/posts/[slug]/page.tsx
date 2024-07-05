@@ -1,23 +1,32 @@
-import { POSTS_PATH } from '@/src/lib/constants';
 import PostHeader from '@/src/app/components/PostHeader';
 import PostBody from '@/src/app/components/PostBody';
+import {
+	getPostFromSlug,
+	getPostSlugs,
+} from '@/src/utils/supabase/clientActions';
 
-export function generateStaticParams() {
-	// const slugs = getPostSlugsFrom(POSTS_PATH);
-	// 	return slugs.map((slug) => ({
-	// 		slug: slug,
-	// 	}));
+export async function generateStaticParams() {
+	const slugs = await getPostSlugs();
+
+	return slugs?.map((item) => ({
+		slug: item.slug,
+	}));
 }
 
 export default async function Page({ params }: { params: { slug: string } }) {
+	const post = await getPostFromSlug(params.slug);
+
+	if (!post) {
+		return <div>Post not found</div>;
+	}
 	return (
-		<section className='m-auto py-6 md:max-w-5xl md:py-12'>
-			{/* <PostHeader
-				title={title}
-				dateString={dateString}
-				readingMinutes={readingMinutes}
-			/> */}
-			{/* <PostBody postContent={postContent} /> */}
+		<section className='m-auto py-6 md:max-w-3xl md:py-12'>
+			<PostHeader
+				title={post.title}
+				created_at={post.created_at}
+				reading_time={post.reading_time}
+			/>
+			<PostBody postContent={post.content} />
 		</section>
 	);
 }
