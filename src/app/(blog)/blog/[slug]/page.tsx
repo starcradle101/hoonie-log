@@ -17,7 +17,7 @@ export async function generateStaticParams() {
 }
 
 export default async function Page({ params }: { params: { slug: string } }) {
-	const post = await getPostFromSlug(params.slug);
+	const post = await getPostFromSlug(decodeURIComponent(params.slug));
 
 	if (!post) {
 		return <div>Post not found</div>;

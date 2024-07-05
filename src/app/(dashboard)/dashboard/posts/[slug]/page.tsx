@@ -16,7 +16,6 @@ export async function generateStaticParams() {
 }
 
 export default async function Page({ params }: { params: { slug: string } }) {
-	console.log(params);
 	const post = await getPostFromSlug(decodeURIComponent(params.slug));
 
 	if (!post) {
