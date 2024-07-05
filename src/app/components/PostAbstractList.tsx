@@ -42,6 +42,7 @@ export default function PostAbstractList({
 	const totalPages = Math.ceil(totalPosts / ITEMS_PER_PAGE);
 
 	const handlePageChange = (page: number) => {
+		if (page < 1 || page > totalPages) return;
 		const params = new URLSearchParams(searchParams.toString());
 		params.set('page', page.toString());
 		router.replace(`${pathname}?${params.toString()}`);
@@ -56,18 +57,24 @@ export default function PostAbstractList({
 	}
 
 	return (
-		<div className='flex h-auto w-full flex-1 flex-col items-center'>
-			<ul className='mb-5 w-full list-none'>
-				{posts.map((item, index) => (
-					<li key={index} className='my-1'>
-						<PostListItem post={item} onPostDeleted={handlePostDeleted} />
+		<div className='flex h-auto w-full flex-1 flex-col items-center pb-4'>
+			<ul className='mb-2 w-full list-none'>
+				{posts.length === 0 ? (
+					<li className='m-auto mt-0 text-center font-medium'>
+						검색 결과를 찾을 수 없습니다
 					</li>
-				))}
+				) : (
+					posts.map((item, index) => (
+						<li key={index} className='my-1'>
+							<PostListItem post={item} onPostDeleted={handlePostDeleted} />
+						</li>
+					))
+				)}
 			</ul>
 			<div className='flex flex-1 items-end justify-center gap-2'>
 				<button
 					onClick={() => handlePageChange(currentPage - 1)}
-					disabled={currentPage === 1}
+					disabled={currentPage === 1 || totalPages === 0}
 					className='px-2 py-1 disabled:opacity-50'
 				>
 					<ArrowLeftIcon width={24} height={24} />
@@ -78,6 +85,7 @@ export default function PostAbstractList({
 							<button
 								key={pageNumber}
 								onClick={() => handlePageChange(pageNumber)}
+								disabled={totalPages === 0}
 								className={`px-2 py-1 ${
 									pageNumber === currentPage
 										? ' text-blue-500 underline'
@@ -91,7 +99,7 @@ export default function PostAbstractList({
 				</div>
 				<button
 					onClick={() => handlePageChange(currentPage + 1)}
-					disabled={currentPage === totalPages}
+					disabled={currentPage === totalPages || totalPages === 0}
 					className='px-2 py-1 disabled:opacity-50'
 				>
 					<ArrowRightIcon width={24} height={24} />
