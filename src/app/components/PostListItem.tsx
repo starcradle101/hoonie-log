@@ -40,9 +40,12 @@ export default function PostListItem({ post }: PostAbstractItemProps) {
 							>
 								삭제
 							</button>
-							<button className='rounded-md border-sky-500 bg-sky-500 px-2 py-1 text-sm font-medium text-white hover:bg-sky-300'>
+							<Link
+								className='rounded-md border-sky-500 bg-sky-500 px-2 py-1 text-sm font-medium text-white hover:bg-sky-300'
+								href={`/dashboard/write?slug=${encodeURIComponent(post.slug)}`}
+							>
 								수정
-							</button>
+							</Link>
 						</div>
 					)}
 				</div>

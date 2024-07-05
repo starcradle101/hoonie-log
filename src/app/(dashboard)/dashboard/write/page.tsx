@@ -1,24 +1,39 @@
 'use client';
-import { useState } from 'react';
-import { useRouter } from 'next/navigation';
+import { useEffect, useState } from 'react';
+import { useRouter, useSearchParams } from 'next/navigation';
 import Tiptap from '@/src/app/components/Tiptap';
 import Modal from '@/src/app/components/Modal';
-import { createPostData } from '@/src/utils/supabase/clientActions';
-
-interface ContentType {
-	title: string;
-	description: string;
-	body: string;
-}
+import {
+	getPostFromSlug,
+	updatePostData,
+	createPostData,
+} from '@/src/utils/supabase/clientActions';
+import { Post } from '@/src/interfaces/post';
 
 export default function Page() {
 	const [title, setTitle] = useState<string>('');
 	const [description, setDescription] = useState<string>('');
 	const [content, setContent] = useState<string>('');
 	const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
+	const [isLoading, setIsLoading] = useState<boolean>(true);
 	const router = useRouter();
+	const searchParams = useSearchParams();
+	const slug = searchParams.get('slug');
 
-	// 여기에 supabase client로 content 불러와서 추가
+	useEffect(() => {
+		const fetchPost = async () => {
+			if (slug) {
+				const post: Post | null = await getPostFromSlug(slug);
+				if (post) {
+					setTitle(post.title);
+					setDescription(post.description);
+					setContent(post.content);
+				}
+			}
+			setIsLoading(false);
+		};
+		fetchPost();
+	}, [slug]);
 
 	const handleTitleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
 		setTitle(e.target.value);
@@ -28,18 +43,26 @@ export default function Page() {
 		setDescription(e.target.value);
 	};
 
-	const handleContentChange = (reason: string) => {
-		setContent(reason);
+	const handleContentChange = (newContent: string) => {
+		setContent(newContent);
 	};
 
 	const handleSubmit = async (e: React.FormEvent) => {
 		e.preventDefault();
-		const result = await createPostData(title, description, content);
-
-		if (result.success) {
-			router.push('/dashboard');
+		if (!slug) {
+			const result = await createPostData(title, description, content);
+			if (result.success) {
+				router.push('/dashboard');
+			} else {
+				console.error('Error creating post:', result.error);
+			}
 		} else {
-			console.error('Error creating post:', result.error);
+			const result = await updatePostData(slug, title, description, content);
+			if (result.success) {
+				router.push('/dashboard');
+			} else {
+				console.error('Error updating post:', result.error);
+			}
 		}
 	};
 
@@ -56,10 +79,14 @@ export default function Page() {
 		router.back();
 	};
 
+	if (isLoading) {
+		return <div>Loading...</div>;
+	}
+
 	return (
 		<div className='m-auto flex h-full flex-col md:max-w-3xl'>
 			<h1 className='my-8 text-2xl font-semibold md:text-4xl'>
-				새 글 작성하기
+				{!slug || slug === 'new' ? '새 글 작성하기' : '글 수정하기'}
 			</h1>
 			<form className='mt-4 flex flex-1 flex-col' onSubmit={handleSubmit}>
 				<label htmlFor='title'>
@@ -71,6 +98,7 @@ export default function Page() {
 					id='title'
 					placeholder='작성할 글의 제목을 입력해주세요.'
 					className='mb-4 mt-2 block w-full resize-none rounded border-2 p-2 focus:outline-green-500'
+					value={title}
 					onChange={handleTitleChange}
 				/>
 
@@ -83,6 +111,7 @@ export default function Page() {
 					id='description'
 					placeholder='작성할 글에 대한 간단한 설명을 입력해주세요.'
 					className='mb-4 mt-2 block w-full resize-none rounded border-2 p-2 focus:outline-green-500'
+					value={description}
 					onChange={handleDescriptionChange}
 				/>
 
@@ -90,11 +119,7 @@ export default function Page() {
 					<span>본문</span>
 					<span className='text-red-500'>*</span>
 				</label>
-				<Tiptap
-					id='body'
-					content={content}
-					onChange={(newContent: string) => handleContentChange(newContent)}
-				/>
+				<Tiptap id='body' content={content} onChange={handleContentChange} />
 
 				<div className='my-4 flex justify-end gap-2'>
 					<button

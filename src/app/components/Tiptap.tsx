@@ -34,6 +34,7 @@ const Tiptap = ({ onChange, content }: any) => {
 	};
 
 	const editor = useEditor({
+		content: content,
 		extensions: [
 			StarterKit.configure({
 				codeBlock: false,
