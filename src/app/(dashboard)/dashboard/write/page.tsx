@@ -14,7 +14,7 @@ interface ContentType {
 export default function Page() {
 	const [title, setTitle] = useState<string>('');
 	const [description, setDescription] = useState<string>('');
-	const [content, setContent] = useState<object>({});
+	const [content, setContent] = useState<string>('');
 	const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
 	const router = useRouter();
 
@@ -28,7 +28,7 @@ export default function Page() {
 		setDescription(e.target.value);
 	};
 
-	const handleContentChange = (reason: object) => {
+	const handleContentChange = (reason: string) => {
 		setContent(reason);
 	};
 
@@ -37,7 +37,6 @@ export default function Page() {
 		const result = await createPostData(title, description, content);
 
 		if (result.success) {
-			console.log('Post created successfully:', result.data);
 			router.push('/dashboard');
 		} else {
 			console.error('Error creating post:', result.error);
@@ -56,8 +55,6 @@ export default function Page() {
 		setIsModalOpen(false);
 		router.back();
 	};
-
-	console.log({ title, description, content });
 
 	return (
 		<div className='m-auto flex h-full flex-col md:max-w-3xl'>
@@ -96,7 +93,7 @@ export default function Page() {
 				<Tiptap
 					id='body'
 					content={content}
-					onChange={(newContent: object) => handleContentChange(newContent)}
+					onChange={(newContent: string) => handleContentChange(newContent)}
 				/>
 
 				<div className='my-4 flex justify-end gap-2'>
