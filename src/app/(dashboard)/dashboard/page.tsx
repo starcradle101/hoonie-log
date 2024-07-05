@@ -1,8 +1,8 @@
 import { redirect } from 'next/navigation';
-import { supabaseServer } from '@/src/utils/supabase/server';
+import { supabaseClient } from '@/src/utils/supabase/client';
 
 export default async function DashboardPage() {
-	const { data, error } = await supabaseServer.auth.getUser();
+	const { data, error } = await supabaseClient.auth.getUser();
 	if (error || !data?.user) {
 		redirect('/login');
 	}
