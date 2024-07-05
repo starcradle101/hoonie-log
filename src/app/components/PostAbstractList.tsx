@@ -4,26 +4,38 @@ import { useSearchParams, useRouter, usePathname } from 'next/navigation';
 import { ArrowLeftIcon, ArrowRightIcon } from 'lucide-react';
 import PostListItem from './PostListItem';
 import { PostAbstract } from '@/src/interfaces/post';
-
-interface DashboardPostAbstractListProps {
-	posts: PostAbstract[];
-}
+import { fetchPostAbstracts } from '@/src/utils/supabase/clientActions';
 
 const ITEMS_PER_PAGE = 10;
 
-export default function DashboardPostAbstractList({
-	posts,
-}: DashboardPostAbstractListProps) {
+export default function PostAbstractList() {
 	const searchParams = useSearchParams();
 	const router = useRouter();
 	const pathname = usePathname();
 
 	const currentPageFromUrl = Number(searchParams.get('page')) || 1;
 	const [currentPage, setCurrentPage] = useState(currentPageFromUrl);
+	const [posts, setPosts] = useState<PostAbstract[]>([]);
+	const [loading, setLoading] = useState<boolean>(true);
 
 	useEffect(() => {
 		setCurrentPage(currentPageFromUrl);
 	}, [currentPageFromUrl]);
+
+	useEffect(() => {
+		const fetchAbstracts = async (page: number) => {
+			setLoading(true);
+			const data = await fetchPostAbstracts(page, ITEMS_PER_PAGE);
+
+			if (data) {
+				setPosts(data);
+			}
+
+			setLoading(false);
+		};
+
+		fetchAbstracts(currentPage);
+	}, [currentPage]);
 
 	const totalPages = Math.ceil(posts.length / ITEMS_PER_PAGE);
 
@@ -34,13 +46,14 @@ export default function DashboardPostAbstractList({
 		setCurrentPage(page);
 	};
 
-	const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
-	const selectedItems = posts.slice(startIndex, startIndex + ITEMS_PER_PAGE);
+	if (loading) {
+		return <div>Loading...</div>;
+	}
 
 	return (
 		<div className='flex h-auto w-full flex-1 flex-col items-center'>
 			<ul className='mb-5 w-full list-none'>
-				{selectedItems.map((item, index) => (
+				{posts.map((item, index) => (
 					<li key={index} className='my-1'>
 						<PostListItem post={item} />
 					</li>

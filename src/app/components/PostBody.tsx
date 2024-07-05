@@ -1,3 +1,4 @@
+import '@/src/app/globals.css';
 interface PostBodyProps {
 	postContent: string;
 }
