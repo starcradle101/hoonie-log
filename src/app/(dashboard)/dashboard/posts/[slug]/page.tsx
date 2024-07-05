@@ -8,9 +8,11 @@ import {
 export async function generateStaticParams() {
 	const slugs = await getPostSlugs();
 
-	return slugs?.map((item) => ({
-		slug: item.slug,
-	}));
+	return (
+		slugs?.map((item) => ({
+			slug: item.slug,
+		})) || []
+	);
 }
 
 export default async function Page({ params }: { params: { slug: string } }) {
