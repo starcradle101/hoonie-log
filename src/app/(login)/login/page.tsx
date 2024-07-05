@@ -1,8 +1,26 @@
+'use client';
 import HoonieLogo from '../../components/icon/HoonieLogo';
 import Link from 'next/link';
 import { login } from '@/src/utils/supabase/serverActions';
+import { useRouter } from 'next/navigation';
+import { FormEvent, useState } from 'react';
 
-export default async function LoginPage() {
+export default function LoginPage() {
+	const router = useRouter();
+	const [error, setError] = useState<string | null>(null);
+
+	const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
+		event.preventDefault();
+		const formData = new FormData(event.currentTarget);
+
+		const result = await login(formData);
+		if (result.success) {
+			router.push('/dashboard');
+		} else {
+			setError('로그인에 실패했습니다.');
+		}
+	};
+
 	return (
 		<div className='flex h-dvh flex-col items-center justify-center px-6 lg:px-8'>
 			<div className='flex flex-col items-center gap-2 sm:mx-auto sm:w-full sm:max-w-sm'>
@@ -13,7 +31,7 @@ export default async function LoginPage() {
 			</div>
 
 			<div className='mt-5 sm:mx-auto sm:w-full sm:max-w-sm'>
-				<form className='space-y-6'>
+				<form className='space-y-6' onSubmit={handleSubmit}>
 					<div>
 						<label
 							htmlFor='email'
@@ -56,12 +74,12 @@ export default async function LoginPage() {
 						<button
 							type='submit'
 							className='flex w-full justify-center rounded-md bg-black px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-gray-600 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gray-600'
-							formAction={login}
 						>
 							Sign in
 						</button>
 					</div>
 				</form>
+				{error && <p className='mt-3 text-center text-red-600'>{error}</p>}
 				<div className='mt-3 flex justify-center'>
 					<Link
 						href='/'

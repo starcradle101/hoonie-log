@@ -1,6 +1,4 @@
 'use server';
-import { revalidatePath } from 'next/cache';
-import { redirect } from 'next/navigation';
 import { createClient } from './server';
 
 export async function login(formData: FormData) {
@@ -15,11 +13,11 @@ export async function login(formData: FormData) {
 	const { error } = await supabase.auth.signInWithPassword(data);
 
 	if (error) {
-		redirect('/error');
+		return { success: false, error };
 	}
 
-	revalidatePath('/', 'layout');
-	redirect('/dashboard');
+	console.log('로그인 완료');
+	return { success: true };
 }
 
 export async function signout() {
@@ -27,11 +25,10 @@ export async function signout() {
 	const { error } = await supabase.auth.signOut();
 
 	if (error) {
-		redirect('/error');
+		return { success: false, error };
 	}
 
-	revalidatePath('/', 'layout');
-	redirect('/login');
+	return { success: true };
 }
 
 export async function getUserData() {
