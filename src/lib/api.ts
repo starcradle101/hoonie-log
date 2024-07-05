@@ -1,29 +1,6 @@
 import dayjs from 'dayjs';
 import { Post, PostAbstract } from '@/src/interfaces/post';
 
-// 게시글 데이터 생성하기
-export const createPost = (
-	title: string,
-	description: string,
-	content: object
-): Post => {
-	const slug = encodeURIComponent(title);
-
-	const createdAt = dayjs().locale('ko').format('YYYY년 MM월 DD일');
-	const updatedAt = createdAt;
-
-	const postData: Post = {
-		slug,
-		title,
-		description,
-		content,
-		createdAt,
-		updatedAt,
-	};
-
-	return postData;
-};
-
 // 게시글 상세 정보 불러오기
 // export function getPostBySlug(slug: string, postDirectory: string) {
 // 	const realSlug = slug.replace(/\.md$/, '');

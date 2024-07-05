@@ -3,11 +3,11 @@ export type Post = {
 	title: string;
 	description: string;
 	content: object;
-	createdAt: string;
-	updatedAt: string;
+	created_at: string;
+	updated_at: string;
 };
 
 export type PostAbstract = Pick<
 	Post,
-	'title' | 'description' | 'createdAt' | 'slug'
+	'title' | 'description' | 'created_at' | 'slug'
 >;
