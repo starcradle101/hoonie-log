@@ -1,19 +1,6 @@
 import PostHeader from '@/src/app/components/PostHeader';
 import PostBody from '@/src/app/components/PostBody';
-import {
-	getPostFromSlug,
-	getPostSlugs,
-} from '@/src/utils/supabase/clientActions';
-
-export async function generateStaticParams() {
-	const slugs = await getPostSlugs();
-
-	return (
-		slugs?.map((item) => ({
-			slug: item.slug,
-		})) || []
-	);
-}
+import { getPostFromSlug } from '@/src/utils/supabase/serverActions';
 
 export default async function Page({ params }: { params: { slug: string } }) {
 	const post = await getPostFromSlug(decodeURIComponent(params.slug));

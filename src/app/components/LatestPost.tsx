@@ -1,7 +1,7 @@
 'use client';
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
-import { fetchLatestPost } from '@/src/utils/supabase/clientActions';
+import { fetchLatestPost } from '@/src/utils/supabase/serverActions';
 
 export default function LatestPost() {
 	const [latestPost, setLatestPost] = useState<any>(null);
