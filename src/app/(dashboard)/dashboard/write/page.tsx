@@ -4,10 +4,10 @@ import { useRouter, useSearchParams } from 'next/navigation';
 import Tiptap from '@/src/app/components/Tiptap';
 import Modal from '@/src/app/components/Modal';
 import {
-	getPostFromSlug,
 	updatePostData,
 	createPostData,
 } from '@/src/utils/supabase/clientActions';
+import { getPostFromSlug } from '@/src/utils/supabase/serverActions';
 import { Post } from '@/src/interfaces/post';
 
 function WritePageContent() {

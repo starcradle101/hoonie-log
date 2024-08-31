@@ -4,7 +4,7 @@ import { useRouter, usePathname, useSearchParams } from 'next/navigation';
 import { ArrowLeftIcon, ArrowRightIcon } from 'lucide-react';
 import PostListItem from './PostListItem';
 import { PostAbstract } from '@/src/interfaces/post';
-import { fetchPostAbstracts } from '@/src/utils/supabase/clientActions';
+import { fetchPostAbstracts } from '@/src/utils/supabase/serverActions';
 
 const ITEMS_PER_PAGE = 10;
 
