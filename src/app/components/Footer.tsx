@@ -1,5 +1,4 @@
 import Github from './icon/Github';
-import Linkedin from './icon/Linkedin';
 import Authentication from './icon/Authentication';
 
 export default function Footer() {
@@ -9,14 +8,10 @@ export default function Footer() {
 				<a href='https://github.com/starcradle101'>
 					<Github />
 				</a>
-				<a href='https://www.linkedin.com/in/dreamerdev12/'>
-					<Linkedin />
-				</a>
 				<Authentication />
 			</div>
 			<span className='block break-keep text-center text-sm'>
-				© 2024. Hoon Kang. <br />이 페이지에는 리디주식회사에서 제공한 리디바탕
-				글꼴이 사용되어 있습니다.
+				© 2024. Hoon Kang.
 			</span>
 		</footer>
 	);

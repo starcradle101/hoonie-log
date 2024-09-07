@@ -3,15 +3,10 @@ import Image from 'next/image';
 import Profile from '@/public/profile.jpg';
 import Github from '../components/icon/Github';
 
-import { Mail, Linkedin } from 'lucide-react';
+import { Mail } from 'lucide-react';
 import LatestPost from '../components/LatestPost';
 
 const socialLinks = [
-	{
-		icon: <Linkedin width={24} height={24} />,
-		href: 'https://www.linkedin.com/in/dreamerdev12/',
-		text: 'LinkedIn',
-	},
 	{
 		icon: <Github />,
 		href: 'https://github.com/starcradle101',
@@ -36,7 +31,9 @@ export const metadata: Metadata = {
 export default function Home() {
 	return (
 		<>
-			<h2 className='mb-8 text-2xl md:text-3xl'>🧑🏻‍💻 Hoonie Hoon</h2>
+			<h2 className='mb-8 text-2xl font-semibold md:text-3xl'>
+				🧑🏻‍💻 Hoonie Hoon
+			</h2>
 
 			<section className='mb-10 flex flex-wrap justify-center gap-8'>
 				<Image
@@ -65,7 +62,9 @@ export default function Home() {
 				</div>
 			</section>
 			<section className='flex flex-col'>
-				<h2 className='mb-8 text-2xl md:text-3xl'>📄 최근 포스트</h2>
+				<h2 className='mb-8 text-2xl font-semibold md:text-3xl'>
+					📄 최근 포스트
+				</h2>
 				<LatestPost />
 			</section>
 		</>
