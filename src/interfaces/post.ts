@@ -2,7 +2,7 @@ export type Post = {
 	slug: string;
 	title: string;
 	description: string;
-	content: string;
+	content: object;
 	created_at: string;
 };
 
