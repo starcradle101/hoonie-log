@@ -25,7 +25,7 @@ export default function LoginPage() {
 		<div className='flex h-dvh flex-col items-center justify-center px-6 lg:px-8'>
 			<div className='flex flex-col items-center gap-2 sm:mx-auto sm:w-full sm:max-w-sm'>
 				<HoonieLogo />
-				<h2 className='text-center text-2xl font-semibold tracking-tight text-gray-900'>
+				<h2 className='text-center text-2xl font-semibold tracking-tight text-gray-900 dark:text-white'>
 					Sign in for Administrator
 				</h2>
 			</div>
@@ -35,7 +35,7 @@ export default function LoginPage() {
 					<div>
 						<label
 							htmlFor='email'
-							className='block text-sm font-medium leading-6 text-gray-900'
+							className='block text-sm font-medium leading-6 text-gray-900 dark:text-white'
 						>
 							Email
 						</label>
@@ -45,7 +45,7 @@ export default function LoginPage() {
 								name='email'
 								type='email'
 								required
-								className='block w-full rounded-md border-0 py-1.5 pl-3 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-1 focus:ring-inset focus:ring-gray-600 focus-visible:outline-gray-600 sm:text-sm sm:leading-6'
+								className='block w-full rounded-md border-0 py-1.5 pl-3 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-1 focus:ring-inset focus:ring-gray-600 focus-visible:outline-gray-600 dark:text-white sm:text-sm sm:leading-6'
 							/>
 						</div>
 					</div>
@@ -54,7 +54,7 @@ export default function LoginPage() {
 						<div className='flex items-center justify-between'>
 							<label
 								htmlFor='password'
-								className='block text-sm font-medium leading-6 text-gray-900'
+								className='block text-sm font-medium leading-6 text-gray-900 dark:text-white'
 							>
 								Password
 							</label>
@@ -65,7 +65,7 @@ export default function LoginPage() {
 								name='password'
 								type='password'
 								required
-								className='block w-full rounded-md border-0 py-1.5 pl-3 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-1 focus:ring-inset focus:ring-gray-600 focus-visible:outline-gray-600 sm:text-sm sm:leading-6'
+								className='block w-full rounded-md border-0 py-1.5 pl-3 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-1 focus:ring-inset focus:ring-gray-600 focus-visible:outline-gray-600 dark:text-white sm:text-sm sm:leading-6'
 							/>
 						</div>
 					</div>

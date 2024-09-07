@@ -34,7 +34,7 @@ export default function PostListItem({
 
 	return (
 		<>
-			<article className='mb-4 border-b-2 border-slate-50'>
+			<article className='mb-4 border-b-2 border-gray-400 pb-2 dark:border-white'>
 				<div className='flex justify-between'>
 					<Link className='text-lg' href={`${pathname}/` + post.slug}>
 						{post.title}
