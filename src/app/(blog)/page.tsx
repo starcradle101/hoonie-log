@@ -62,7 +62,7 @@ export default function Home() {
 				</div>
 			</section>
 			<section className='flex flex-col'>
-				<h2 className='mb-8 text-2xl font-semibold md:text-3xl'>
+				<h2 className='mb-4 text-2xl font-semibold md:text-3xl'>
 					📄 최근 포스트
 				</h2>
 				<LatestPost />

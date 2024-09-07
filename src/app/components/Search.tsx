@@ -35,7 +35,7 @@ export default function Search({ placeholder }: { placeholder: string }) {
 				defaultValue={searchParams.get('query')?.toString()}
 			/>
 			<SearchIcon
-				className='absolute left-3 top-1/2 -translate-y-1/2 text-gray-500 peer-focus:text-gray-900'
+				className='absolute left-3 top-1/2 -translate-y-1/2 text-gray-500 peer-focus:text-gray-900 dark:peer-focus:text-gray-300'
 				width={24}
 				height={24}
 			/>

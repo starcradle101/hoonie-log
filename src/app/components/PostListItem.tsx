@@ -3,6 +3,7 @@ import { usePathname } from 'next/navigation';
 import { PostAbstract } from '@/src/interfaces/post';
 import { useState } from 'react';
 import { deletePostData } from '@/src/utils/supabase/clientActions';
+import dayjs from 'dayjs';
 import Link from 'next/link';
 import Modal from './Modal';
 
@@ -34,36 +35,34 @@ export default function PostListItem({
 
 	return (
 		<>
-			<article className='mb-4 border-b-2 border-gray-400 pb-2 dark:border-white'>
-				<div className='flex justify-between'>
+			<article className='mb-8 flex'>
+				<div className='flex-1'>
 					<Link className='text-lg' href={`${pathname}/` + post.slug}>
 						{post.title}
 					</Link>
-					{isDashboard && (
-						<div className='flex gap-2'>
-							<button
-								className='rounded-md border-red-500 bg-red-500 px-2 py-1 text-sm font-medium text-white hover:bg-red-300'
-								onClick={(e) => {
-									e.preventDefault();
-									openModal();
-								}}
-							>
-								삭제
-							</button>
-							<Link
-								className='rounded-md border-sky-500 bg-sky-500 px-2 py-1 text-sm font-medium text-white hover:bg-sky-300'
-								href={`/dashboard/write?slug=${post.slug}`}
-							>
-								수정
-							</Link>
-						</div>
-					)}
+					<p className='mt-2 text-sm text-slate-400'>
+						{dayjs(post.created_at).format('YYYY년 MM월 DD일')}
+					</p>
 				</div>
-
-				<div className='mt-2 flex justify-between text-sm text-slate-400'>
-					<p>{post.description}</p>
-					<p>{post.created_at}</p>
-				</div>
+				{isDashboard && (
+					<div className='flex items-center gap-2'>
+						<button
+							className='rounded-md border-red-500 bg-red-500 px-2 py-1 text-sm font-medium text-white hover:bg-red-300'
+							onClick={(e) => {
+								e.preventDefault();
+								openModal();
+							}}
+						>
+							삭제
+						</button>
+						<Link
+							className='rounded-md border-sky-500 bg-sky-500 px-2 py-1 text-sm font-medium text-white hover:bg-sky-300'
+							href={`/dashboard/write?slug=${post.slug}`}
+						>
+							수정
+						</Link>
+					</div>
+				)}
 			</article>
 
 			{isDashboard && (

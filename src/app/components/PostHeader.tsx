@@ -11,7 +11,7 @@ export default function PostHeader({ title, created_at }: PostHeaderProps) {
 			<h1 className='mb-2 text-xl sm:text-2xl md:text-3xl lg:text-4xl'>
 				{title}
 			</h1>
-			<div className='flex items-center gap-4 text-sm text-slate-500'>
+			<div className='flex items-center gap-1 text-sm text-slate-500 dark:text-slate-100'>
 				<CalendarDays width={12} height={12} />
 				<span>{created_at}</span>
 			</div>

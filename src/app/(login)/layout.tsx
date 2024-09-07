@@ -1,7 +1,7 @@
 'use client';
 import localFont from 'next/font/local';
 import '@/src/app/globals.css';
-import { ThemeProvider } from 'next-themes';
+import Providers from '../components/Providers';
 
 const pretendard_var = localFont({
 	src: '../../../public/fonts/pretendard_variable.woff2',
@@ -18,7 +18,7 @@ export default function DashboardLayout({
 			<body
 				className={`${pretendard_var.className} m-auto min-h-dvh px-4 antialiased md:max-w-4xl`}
 			>
-				<ThemeProvider attribute='class'>{children}</ThemeProvider>
+				<Providers>{children}</Providers>
 			</body>
 		</html>
 	);
