@@ -7,7 +7,7 @@ import { v4 as uuidv4 } from 'uuid';
 export const createPostData = async (
 	title: string,
 	description: string,
-	content: string
+	content: object
 ) => {
 	const baseSlug = customSlugify(title);
 	const slug = `${baseSlug}-${uuidv4()}`;
@@ -38,7 +38,7 @@ export const updatePostData = async (
 	slug: string,
 	title: string,
 	description: string,
-	content: string
+	content: object
 ) => {
 	const postData = {
 		title,

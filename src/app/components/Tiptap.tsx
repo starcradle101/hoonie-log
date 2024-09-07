@@ -29,7 +29,7 @@ lowlight.register('html', html);
 const Tiptap = ({ onChange, content }: any) => {
 	const editorContainerRef = useRef<HTMLDivElement>(null);
 
-	const handleChange = (newContent: string) => {
+	const handleChange = (newContent: object) => {
 		onChange(newContent);
 	};
 
@@ -62,7 +62,7 @@ const Tiptap = ({ onChange, content }: any) => {
 			},
 		},
 		onUpdate: ({ editor }) => {
-			handleChange(editor.getHTML());
+			handleChange(editor.getJSON());
 		},
 	});
 
