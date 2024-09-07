@@ -5,6 +5,7 @@ import { ArrowLeftIcon, ArrowRightIcon } from 'lucide-react';
 import PostListItem from './PostListItem';
 import { PostAbstract } from '@/src/interfaces/post';
 import { fetchPostAbstracts } from '@/src/utils/supabase/serverActions';
+import { PostListSkeleton } from './skeletons/PostListSkeleton';
 
 const ITEMS_PER_PAGE = 10;
 
@@ -53,7 +54,12 @@ export default function PostAbstractList({
 	};
 
 	if (loading) {
-		return <div>Loading...</div>;
+		return (
+			<PostListSkeleton
+				itemsCount={ITEMS_PER_PAGE}
+				isDashboard={pathname.startsWith('/dashboard')}
+			/>
+		);
 	}
 
 	return (

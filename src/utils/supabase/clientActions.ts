@@ -11,8 +11,7 @@ export const createPostData = async (
 ) => {
 	const baseSlug = customSlugify(title);
 	const slug = `${baseSlug}-${uuidv4()}`;
-
-	const created_at = dayjs().locale('ko').format('YYYY-MM-DD');
+	const created_at = dayjs().format('YYYY-MM-DD');
 
 	const postData: Post = {
 		slug,

@@ -6,7 +6,7 @@ interface PostBodyProps {
 export default function PostBody({ postContent }: PostBodyProps) {
 	return (
 		<section
-			className='prose mb-2'
+			className='prose mb-2 dark:text-white'
 			dangerouslySetInnerHTML={{ __html: postContent }}
 		></section>
 	);
