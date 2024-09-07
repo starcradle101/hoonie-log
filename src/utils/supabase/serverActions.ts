@@ -9,11 +9,10 @@ export async function login(formData: FormData) {
 		password: formData.get('password') as string,
 	};
 
-	// login data 포함시켜서 로직 처리 수정할 것
 	const { error } = await supabase.auth.signInWithPassword(data);
 
 	if (error) {
-		return { success: false, error };
+		return { success: false, error: error.message };
 	}
 
 	console.log('로그인 완료');
