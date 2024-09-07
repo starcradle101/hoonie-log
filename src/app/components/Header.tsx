@@ -1,4 +1,5 @@
 'use client';
+import Github from './icon/Github';
 import Link from 'next/link';
 import ThemeToggle from './ThemeToggle';
 
@@ -10,10 +11,16 @@ export default function Header() {
 					<Link className='text-2xl font-semibold' href='/'>
 						hoonie-log
 					</Link>
-					<nav className='flex gap-4'>
-						<Link className='self-center text-base font-medium' href='/blog'>
+					<nav className='flex items-center gap-4'>
+						<Link className='font-medium' href='/'>
+							home
+						</Link>
+						<Link className='font-medium' href='/blog'>
 							blog
 						</Link>
+						<a href='https://github.com/starcradle101'>
+							<Github />
+						</a>
 						<ThemeToggle />
 					</nav>
 				</div>

@@ -9,12 +9,6 @@ const pretendard_var = localFont({
 	display: 'swap',
 });
 
-const ridiBatang = localFont({
-	src: '../../../public/fonts/RIDIBatang.otf',
-	display: 'swap',
-	variable: '--font-RIDIBatang',
-});
-
 export default function BlogRootLayout({
 	children,
 }: Readonly<{
@@ -27,9 +21,7 @@ export default function BlogRootLayout({
 			>
 				<ThemeProvider attribute='class'>
 					<Header></Header>
-					<main
-						className={`${ridiBatang.className} m-auto mt-5  w-full max-w-3xl flex-1 px-5 md:w-[calc(100%-4rem)] md:max-w-3xl md:px-0 xl:w-[calc(100%-30rem)]`}
-					>
+					<main className=' m-auto mt-5  w-full max-w-3xl flex-1 px-5 md:w-[calc(100%-4rem)] md:max-w-3xl md:px-0 xl:w-[calc(100%-30rem)]'>
 						{children}
 					</main>
 					<Footer></Footer>
