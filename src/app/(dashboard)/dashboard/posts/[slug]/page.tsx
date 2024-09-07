@@ -10,11 +10,7 @@ export default async function Page({ params }: { params: { slug: string } }) {
 	}
 	return (
 		<section className='m-auto py-6 md:max-w-3xl md:py-12'>
-			<PostHeader
-				title={post.title}
-				created_at={post.created_at}
-				reading_time={post.reading_time}
-			/>
+			<PostHeader title={post.title} created_at={post.created_at} />
 			<PostBody postContent={post.content} />
 		</section>
 	);

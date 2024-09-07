@@ -12,11 +12,7 @@ export default async function Page({ params }: { params: { slug: string } }) {
 
 	return (
 		<>
-			<PostHeader
-				title={post.title}
-				created_at={post.created_at}
-				reading_time={post.reading_time}
-			/>
+			<PostHeader title={post.title} created_at={post.created_at} />
 			<PostBody postContent={post.content} />
 			<div className='my-6 border-b-2 border-b-slate-200'></div>
 			<Giscus />

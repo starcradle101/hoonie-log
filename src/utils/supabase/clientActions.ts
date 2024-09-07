@@ -13,7 +13,6 @@ export const createPostData = async (
 	const slug = `${baseSlug}-${uuidv4()}`;
 
 	const created_at = dayjs().locale('ko').format('YYYY-MM-DD');
-	const updated_at = created_at;
 
 	const postData: Post = {
 		slug,
@@ -21,7 +20,6 @@ export const createPostData = async (
 		description,
 		content,
 		created_at,
-		updated_at,
 	};
 
 	const { data, error } = await supabaseClient
@@ -43,13 +41,10 @@ export const updatePostData = async (
 	description: string,
 	content: string
 ) => {
-	const updated_at = dayjs().locale('ko').format('YYYY-MM-DD');
-
 	const postData = {
 		title,
 		description,
 		content,
-		updated_at,
 	};
 
 	const { data, error } = await supabaseClient
