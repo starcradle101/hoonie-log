@@ -7,3 +7,8 @@ export const customSlugify = (text: string): string => {
 
 	return filteredText;
 };
+
+export const isValidEmail = (email: string): boolean => {
+	const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+	return emailRegex.test(email);
+};
