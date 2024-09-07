@@ -4,8 +4,6 @@ export type Post = {
 	description: string;
 	content: string;
 	created_at: string;
-	updated_at: string;
-	reading_time: number;
 };
 
 export type PostAbstract = Pick<

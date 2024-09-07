@@ -1,4 +1,3 @@
-import readingTime from 'reading-time';
 import dayjs from 'dayjs';
 import { supabaseClient } from './client';
 import { Post } from '@/src/interfaces/post';
@@ -14,8 +13,6 @@ export const createPostData = async (
 	const slug = `${baseSlug}-${uuidv4()}`;
 
 	const created_at = dayjs().locale('ko').format('YYYY-MM-DD');
-	const updated_at = created_at;
-	const reading_time = Math.ceil(readingTime(content).minutes);
 
 	const postData: Post = {
 		slug,
@@ -23,8 +20,6 @@ export const createPostData = async (
 		description,
 		content,
 		created_at,
-		updated_at,
-		reading_time,
 	};
 
 	const { data, error } = await supabaseClient
@@ -46,15 +41,10 @@ export const updatePostData = async (
 	description: string,
 	content: string
 ) => {
-	const updated_at = dayjs().locale('ko').format('YYYY-MM-DD');
-	const reading_time = Math.ceil(readingTime(content).minutes);
-
 	const postData = {
 		title,
 		description,
 		content,
-		updated_at,
-		reading_time,
 	};
 
 	const { data, error } = await supabaseClient
