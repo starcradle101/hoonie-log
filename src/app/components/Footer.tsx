@@ -14,7 +14,7 @@ export default function Footer() {
 				</a>
 				<Authentication />
 			</div>
-			<span className='block break-keep text-center text-sm text-slate-500'>
+			<span className='block break-keep text-center text-sm'>
 				© 2024. Hoon Kang. <br />이 페이지에는 리디주식회사에서 제공한 리디바탕
 				글꼴이 사용되어 있습니다.
 			</span>
