@@ -13,7 +13,7 @@ import { Post } from '@/src/interfaces/post';
 function WritePageContent() {
 	const [title, setTitle] = useState<string>('');
 	const [description, setDescription] = useState<string>('');
-	const [content, setContent] = useState<string>('');
+	const [content, setContent] = useState<object>({});
 	const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
 	const [isLoading, setIsLoading] = useState<boolean>(true);
 	const router = useRouter();
@@ -43,7 +43,7 @@ function WritePageContent() {
 		setDescription(e.target.value);
 	};
 
-	const handleContentChange = (newContent: string) => {
+	const handleContentChange = (newContent: object) => {
 		setContent(newContent);
 	};
 
