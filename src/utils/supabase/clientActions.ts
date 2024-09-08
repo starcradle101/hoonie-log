@@ -7,7 +7,8 @@ import { v4 as uuidv4 } from 'uuid';
 export const createPostData = async (
 	title: string,
 	description: string,
-	content: object
+	content: object,
+	thumbnail_url: string
 ) => {
 	const baseSlug = customSlugify(title);
 	const slug = `${baseSlug}-${uuidv4()}`;
@@ -19,6 +20,7 @@ export const createPostData = async (
 		description,
 		content,
 		created_at,
+		thumbnail_url,
 	};
 
 	const { data, error } = await supabaseClient
@@ -38,12 +40,14 @@ export const updatePostData = async (
 	slug: string,
 	title: string,
 	description: string,
-	content: object
+	content: object,
+	thumbnail_url: string
 ) => {
 	const postData = {
 		title,
 		description,
 		content,
+		thumbnail_url,
 	};
 
 	const { data, error } = await supabaseClient
@@ -69,4 +73,33 @@ export const deletePostData = async (id: number) => {
 	}
 
 	return { success: true };
+};
+
+export const uploadThumbnail = async (thumbnail: File): Promise<string> => {
+	try {
+		const fileName = `${Date.now()}_${thumbnail.name}`;
+
+		const { data, error } = await supabaseClient.storage
+			.from('images')
+			.upload(`thumbnails/${fileName}`, thumbnail, {
+				cacheControl: '3600',
+				upsert: false,
+			});
+
+		if (error) {
+			console.error('Error uploading thumbnail:', error);
+			return '';
+		}
+
+		const {
+			data: { publicUrl },
+		} = supabaseClient.storage
+			.from('images')
+			.getPublicUrl(`thumbnails/${fileName}`);
+
+		return publicUrl;
+	} catch (error) {
+		console.error('Error in uploadThumbnail:', error);
+		return '';
+	}
 };
