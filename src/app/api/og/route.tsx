@@ -31,6 +31,58 @@ export async function GET(req: Request) {
 		);
 	}
 
+	if (post.thumbnail_url) {
+		// 썸네일 이미지가 있는 경우, 이를 배경으로 사용
+		return new ImageResponse(
+			(
+				<div
+					style={{
+						display: 'flex',
+						flexDirection: 'column',
+						justifyContent: 'flex-end',
+						width: '100%',
+						height: '100%',
+						backgroundImage: `url(${post.thumbnail_url})`,
+						backgroundSize: 'cover',
+						backgroundPosition: 'center',
+						padding: '20px',
+						textAlign: 'left',
+						fontFamily: 'sans-serif',
+					}}
+				>
+					<div
+						style={{
+							backgroundColor: 'rgba(0, 0, 0, 0.6)',
+							padding: '20px',
+							borderRadius: '10px',
+						}}
+					>
+						<h2
+							style={{
+								fontSize: '50px',
+								fontWeight: 'bold',
+								color: 'white',
+								margin: 0,
+							}}
+						>
+							{post.title}
+						</h2>
+						<p
+							style={{ fontSize: '24px', color: 'white', margin: '10px 0 0 0' }}
+						>
+							{post.description}
+						</p>
+					</div>
+				</div>
+			),
+			{
+				width: 1200,
+				height: 630,
+			}
+		);
+	}
+
+	// 썸네일 이미지가 없는 경우, 기존 로직 사용
 	return new ImageResponse(
 		(
 			<div
