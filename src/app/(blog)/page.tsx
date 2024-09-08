@@ -19,15 +19,6 @@ const socialLinks = [
 	},
 ];
 
-export const metadata: Metadata = {
-	title: 'hoonie-log',
-	description: 'tech blog of hoonie',
-	icons: {
-		icon: './favicon.ico',
-		apple: './apple-icon.png',
-	},
-};
-
 export default function Home() {
 	return (
 		<>
