@@ -35,29 +35,37 @@ export async function GET(req: Request) {
 		);
 	}
 
-	// Supabase에서 가져온 데이터를 바탕으로 이미지를 생성
 	return new ImageResponse(
 		(
 			<div
 				style={{
 					display: 'flex',
 					flexDirection: 'column',
-					width: '1200px',
-					height: '630px',
-					backgroundColor: '#f0f0f0',
 					justifyContent: 'center',
 					alignItems: 'center',
-					fontSize: 40,
+					width: '100%',
+					height: '100%',
+					backgroundColor: '#4F46E5', // Tailwind의 'indigo-600' 배경 색상
+					color: 'white', // 텍스트 색상
 					padding: '20px',
 					textAlign: 'center',
+					fontFamily: 'sans-serif', // 기본 폰트 스타일
 				}}
 			>
-				<h1
-					style={{ fontSize: '60px', fontWeight: 'bold', marginBottom: '20px' }}
+				<svg
+					xmlns='http://www.w3.org/2000/svg'
+					viewBox='0 0 24 24'
+					fill='white'
+					width='100'
+					height='100'
+					style={{ marginBottom: '20px' }}
 				>
-					{post.title}
-				</h1>
-				<p style={{ fontSize: '30px', color: '#555' }}>{post.description}</p>
+					<path d='M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zM11 9V4.07c.32-.05.66-.07 1-.07s.68.02 1 .07V9h-2zm6.79 5c-.13.58-.21 1.17-.21 1.79 0 4.07-3.05 7.43-7 7.93V17c1.1 0 2-.9 2-2v-1l5.79-5.79c.12.58.21 1.17.21 1.79 0 4.07-3.05 7.43-7 7.93V17c1.1 0 2-.9 2-2v-1l5.79-5.79c.12.58.21 1.17.21 1.79z' />
+				</svg>
+				<h2 style={{ fontSize: '50px', fontWeight: 'bold' }}>{post.title}</h2>
+				<p style={{ fontSize: '24px', marginTop: '10px' }}>
+					{post.description}
+				</p>
 			</div>
 		),
 		{
