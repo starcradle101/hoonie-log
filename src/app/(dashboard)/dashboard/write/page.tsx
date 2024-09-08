@@ -1,6 +1,7 @@
 'use client';
 import { useEffect, useState, Suspense } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
+import Image from 'next/image';
 import Tiptap from '@/src/app/components/Tiptap';
 import Modal from '@/src/app/components/Modal';
 import {
@@ -8,12 +9,15 @@ import {
 	createPostData,
 } from '@/src/utils/supabase/clientActions';
 import { getPostFromSlug } from '@/src/utils/supabase/serverActions';
+import { uploadThumbnail } from '@/src/utils/supabase/clientActions';
 import { Post } from '@/src/interfaces/post';
 
 function WritePageContent() {
 	const [title, setTitle] = useState<string>('');
 	const [description, setDescription] = useState<string>('');
 	const [content, setContent] = useState<object>({});
+	const [thumbnail, setThumbnail] = useState<File | null>(null);
+	const [thumbnailUrl, setThumbnailUrl] = useState<string>('');
 	const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
 	const [isLoading, setIsLoading] = useState<boolean>(true);
 	const router = useRouter();
@@ -28,6 +32,7 @@ function WritePageContent() {
 					setTitle(post.title);
 					setDescription(post.description);
 					setContent(post.content);
+					setThumbnailUrl(post.thumbnail_url);
 				}
 			}
 			setIsLoading(false);
@@ -47,17 +52,42 @@ function WritePageContent() {
 		setContent(newContent);
 	};
 
+	const handleThumbnailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+		if (e.target.files && e.target.files[0]) {
+			const file = e.target.files[0];
+			setThumbnail(file);
+			setThumbnailUrl(URL.createObjectURL(file));
+		}
+	};
+
 	const handleSubmit = async (e: React.FormEvent) => {
 		e.preventDefault();
+		let uploadedThumbnailUrl = thumbnailUrl;
+
+		if (thumbnail) {
+			uploadedThumbnailUrl = await uploadThumbnail(thumbnail);
+		}
+
 		if (!slug) {
-			const result = await createPostData(title, description, content);
+			const result = await createPostData(
+				title,
+				description,
+				content,
+				uploadedThumbnailUrl
+			);
 			if (result.success) {
 				router.push('/dashboard');
 			} else {
 				console.error('Error creating post:', result.error);
 			}
 		} else {
-			const result = await updatePostData(slug, title, description, content);
+			const result = await updatePostData(
+				slug,
+				title,
+				description,
+				content,
+				uploadedThumbnailUrl
+			);
 			if (result.success) {
 				router.push('/dashboard');
 			} else {
@@ -114,6 +144,28 @@ function WritePageContent() {
 					value={description}
 					onChange={handleDescriptionChange}
 				/>
+
+				<label htmlFor='thumbnail'>
+					<span>썸네일</span>
+				</label>
+				<input
+					type='file'
+					id='thumbnail'
+					accept='image/*'
+					onChange={handleThumbnailChange}
+					className='mb-4 mt-2 block w-full'
+				/>
+				{thumbnailUrl && (
+					<div className='mb-4'>
+						<Image
+							src={thumbnailUrl}
+							alt='썸네일 미리보기'
+							width={200}
+							height={200}
+							objectFit='cover'
+						/>
+					</div>
+				)}
 
 				<label htmlFor='body'>
 					<span>본문</span>

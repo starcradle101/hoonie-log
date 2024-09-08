@@ -4,6 +4,7 @@ export type Post = {
 	description: string;
 	content: object;
 	created_at: string;
+	thumbnail_url: string;
 };
 
 export type PostAbstract = Pick<
