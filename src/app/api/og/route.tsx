@@ -1,17 +1,13 @@
 import { ImageResponse } from '@vercel/og';
 import { getPostFromSlug } from '@/src/utils/supabase/serverActions';
 
-export const runtime = 'edge'; // API가 edge에서 실행되도록 설정
+export const runtime = 'edge';
 
 export async function GET(req: Request) {
-	// URL에서 query parameter로 전달된 slug를 가져옵니다.
 	const { searchParams } = new URL(req.url);
 	const slug = searchParams.get('slug');
-
-	// getPostFromSlug 함수를 사용해 Supabase에서 데이터를 가져옴
 	const post = await getPostFromSlug(slug || '');
 
-	// 만약 포스트가 없으면 기본 이미지를 생성하거나 오류 처리
 	if (!post) {
 		return new ImageResponse(
 			(
@@ -45,11 +41,11 @@ export async function GET(req: Request) {
 					alignItems: 'center',
 					width: '100%',
 					height: '100%',
-					backgroundColor: '#4F46E5', // Tailwind의 'indigo-600' 배경 색상
-					color: 'white', // 텍스트 색상
+					backgroundColor: '#4F46E5',
+					color: 'white',
 					padding: '20px',
 					textAlign: 'center',
-					fontFamily: 'sans-serif', // 기본 폰트 스타일
+					fontFamily: 'sans-serif',
 				}}
 			>
 				<svg

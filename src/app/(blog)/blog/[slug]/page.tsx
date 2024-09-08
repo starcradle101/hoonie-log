@@ -28,7 +28,7 @@ export async function generateMetadata({
 			url: `https://hoonie-log.vercel.app/blog/${params.slug}`,
 			images: [
 				{
-					url: `https://hoonie-log.vercel.app/api/og?slug=${params.slug}`, // 동적 OG 이미지 URL
+					url: `https://hoonie-log.vercel.app/api/og?slug=${params.slug}`,
 					width: 1200,
 					height: 630,
 				},
