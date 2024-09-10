@@ -3,7 +3,25 @@ import PostBody from '../../../components/PostBody';
 import Giscus from '../../../components/Giscus';
 import dayjs from 'dayjs';
 import { getPostFromSlug } from '@/src/utils/supabase/serverActions';
+import { getAllPosts } from '@/src/utils/supabase/clientActions';
 import { Metadata } from 'next';
+
+export const revalidate = 60;
+
+export const dynamicParams = true;
+
+export async function generateStaticParams() {
+	const posts = await getAllPosts();
+
+	if (!posts) {
+		console.error('포스트를 가져오는데 실패했습니다');
+		return [];
+	}
+
+	return posts.map((post) => ({
+		slug: post.slug,
+	}));
+}
 
 export async function generateMetadata({
 	params,
