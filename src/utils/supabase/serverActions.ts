@@ -90,18 +90,6 @@ export async function fetchLatestPost() {
 	return data;
 }
 
-export const getAllPosts = async () => {
-	const supabase = createClient();
-	const { data, error } = await supabase.from('posts').select('*');
-
-	if (error) {
-		console.error('오류가 발생했습니다:', error);
-		return null;
-	}
-
-	return data;
-};
-
 export const getPostSlugs = async () => {
 	const supabase = createClient();
 	const { data, error } = await supabase.from('posts').select('slug');

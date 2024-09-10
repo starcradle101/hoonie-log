@@ -4,6 +4,17 @@ import { Post } from '@/src/interfaces/post';
 import { customSlugify } from '@/src/lib/api';
 import { v4 as uuidv4 } from 'uuid';
 
+export const getAllPosts = async () => {
+	const { data, error } = await supabaseClient.from('posts').select('*');
+
+	if (error) {
+		console.error('오류가 발생했습니다:', error);
+		return null;
+	}
+
+	return data;
+};
+
 export const createPostData = async (
 	title: string,
 	description: string,

@@ -2,10 +2,8 @@ import PostHeader from '../../../components/PostHeader';
 import PostBody from '../../../components/PostBody';
 import Giscus from '../../../components/Giscus';
 import dayjs from 'dayjs';
-import {
-	getPostFromSlug,
-	getAllPosts,
-} from '@/src/utils/supabase/serverActions';
+import { getPostFromSlug } from '@/src/utils/supabase/serverActions';
+import { getAllPosts } from '@/src/utils/supabase/clientActions';
 import { Metadata } from 'next';
 
 export const revalidate = 60;
