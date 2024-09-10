@@ -2,7 +2,7 @@
 import { useEffect, useState, Suspense } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import Image from 'next/image';
-import Tiptap from '@/src/app/components/Tiptap';
+import Tiptap from '@/src/app/components/editor/Tiptap';
 import Modal from '@/src/app/components/ui/Modal';
 import {
 	updatePostData,
