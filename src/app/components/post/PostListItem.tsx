@@ -5,7 +5,7 @@ import { useState } from 'react';
 import { deletePostData } from '@/src/utils/supabase/clientActions';
 import dayjs from 'dayjs';
 import Link from 'next/link';
-import Modal from './Modal';
+import Modal from '../ui/Modal';
 
 interface PostAbstractItemProps {
 	post: PostAbstract;

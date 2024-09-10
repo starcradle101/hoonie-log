@@ -1,7 +1,7 @@
 'use client';
 import localFont from 'next/font/local';
 import '@/src/app/globals.css';
-import SideNav from '../components/SideNav';
+import SideNav from '../components/layout/SideNav';
 
 const pretendard_var = localFont({
 	src: '../../../public/fonts/pretendard_variable.woff2',

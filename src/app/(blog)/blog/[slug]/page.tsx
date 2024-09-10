@@ -1,6 +1,6 @@
-import PostHeader from '../../../components/PostHeader';
-import PostBody from '../../../components/PostBody';
-import Giscus from '../../../components/Giscus';
+import PostHeader from '../../../components/post/PostHeader';
+import PostBody from '../../../components/post/PostBody';
+import Giscus from '../../../components/comments/Giscus';
 import dayjs from 'dayjs';
 import { getPostFromSlug } from '@/src/utils/supabase/serverActions';
 import { getAllPosts } from '@/src/utils/supabase/clientActions';

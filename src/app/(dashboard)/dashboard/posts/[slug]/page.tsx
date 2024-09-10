@@ -1,5 +1,5 @@
-import PostHeader from '@/src/app/components/PostHeader';
-import PostBody from '@/src/app/components/PostBody';
+import PostHeader from '@/src/app/components/post/PostHeader';
+import PostBody from '@/src/app/components/post/PostBody';
 import { getPostFromSlug } from '@/src/utils/supabase/serverActions';
 
 export default async function Page({ params }: { params: { slug: string } }) {

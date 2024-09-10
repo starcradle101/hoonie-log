@@ -1,7 +1,7 @@
 'use client';
-import Github from './icon/Github';
+import Github from '../icon/Github';
 import Link from 'next/link';
-import ThemeToggle from './ThemeToggle';
+import ThemeToggle from '../ui/ThemeToggle';
 
 export default function Header() {
 	return (
