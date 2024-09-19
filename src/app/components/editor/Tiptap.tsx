@@ -1,4 +1,4 @@
-'use client';
+import { FC, useCallback, useMemo } from 'react';
 import { useEditor, EditorContent } from '@tiptap/react';
 import CodeBlockLowlight from '@tiptap/extension-code-block-lowlight';
 import FontFamily from '@tiptap/extension-font-family';
@@ -10,32 +10,26 @@ import StarterKit from '@tiptap/starter-kit';
 import TextStyle from '@tiptap/extension-text-style';
 import Typography from '@tiptap/extension-typography';
 import Underline from '@tiptap/extension-underline';
-
 import { common, createLowlight } from 'lowlight';
-import css from 'highlight.js/lib/languages/css';
-import js from 'highlight.js/lib/languages/javascript';
-import ts from 'highlight.js/lib/languages/typescript';
-import html from 'highlight.js/lib/languages/xml';
-
 import Toolbar from './Toolbar';
-import { useEffect, useRef } from 'react';
 
-const lowlight = createLowlight();
-lowlight.register('js', js);
-lowlight.register('ts', ts);
-lowlight.register('css', css);
-lowlight.register('html', html);
+const lowlight = createLowlight(common);
 
-const Tiptap = ({ onChange, content }: any) => {
-	const editorContainerRef = useRef<HTMLDivElement>(null);
+interface TiptapProps {
+	onChange: (content: object) => void;
+	content: object;
+}
 
-	const handleChange = (newContent: object) => {
-		onChange(newContent);
-	};
+const Tiptap: FC<TiptapProps> = ({ onChange, content }) => {
+	const handleChange = useCallback(
+		(newContent: object) => {
+			onChange(newContent);
+		},
+		[onChange]
+	);
 
-	const editor = useEditor({
-		content: content,
-		extensions: [
+	const extensions = useMemo(
+		() => [
 			StarterKit.configure({
 				codeBlock: false,
 				heading: {
@@ -43,7 +37,7 @@ const Tiptap = ({ onChange, content }: any) => {
 				},
 			}),
 			CodeBlockLowlight.configure({
-				lowlight: createLowlight(common),
+				lowlight,
 			}),
 			FontFamily,
 			Highlight,
@@ -56,9 +50,16 @@ const Tiptap = ({ onChange, content }: any) => {
 			Typography,
 			Underline,
 		],
+		[]
+	);
+
+	const editor = useEditor({
+		extensions,
+		content,
 		editorProps: {
 			attributes: {
-				class: 'w-full focus:outline-none flex-1 relative',
+				class:
+					'w-full flex-1 relative prose lg:prose-lg focus:outline-none dark:prose-invert',
 			},
 		},
 		onUpdate: ({ editor }) => {
@@ -66,34 +67,12 @@ const Tiptap = ({ onChange, content }: any) => {
 		},
 	});
 
-	const updateEditorHeight = () => {
-		if (editorContainerRef.current) {
-			const containerHeight =
-				window.innerHeight -
-				editorContainerRef.current.getBoundingClientRect().top -
-				80;
-			editorContainerRef.current.style.maxHeight = `${containerHeight}px`;
-		}
-	};
-
-	useEffect(() => {
-		updateEditorHeight();
-		window.addEventListener('resize', updateEditorHeight);
-
-		return () => {
-			window.removeEventListener('resize', updateEditorHeight);
-		};
-	}, []);
-
 	return (
-		<div
-			ref={editorContainerRef}
-			className='mt-2 flex flex-1 flex-col rounded border-2'
-		>
+		<div className='mt-2 flex flex-col rounded border-2' id='body'>
 			<Toolbar editor={editor} content={content} />
 			<EditorContent
 				editor={editor}
-				className='flex h-full flex-1 flex-col overflow-auto whitespace-pre-line px-2 py-4'
+				className='flex h-[730px] flex-grow-0 flex-col overflow-auto whitespace-pre-line px-2 py-4'
 			/>
 		</div>
 	);

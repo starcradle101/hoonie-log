@@ -1,4 +1,5 @@
 'use client';
+import { PostBodyProps } from '@/src/interfaces/post';
 import { EditorContent, useEditor } from '@tiptap/react';
 import StarterKit from '@tiptap/starter-kit';
 import CodeBlockLowlight from '@tiptap/extension-code-block-lowlight';
@@ -13,10 +14,6 @@ import Underline from '@tiptap/extension-underline';
 import React from 'react';
 import { common, createLowlight } from 'lowlight';
 import ToC from './ToC';
-
-interface PostBodyProps {
-	postContent: object;
-}
 
 export default function PostBody({ postContent }: PostBodyProps) {
 	const editor = useEditor({

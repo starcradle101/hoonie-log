@@ -16,7 +16,7 @@ export default function DashboardLayout({
 	return (
 		<html lang='en'>
 			<body
-				className={`${pretendard_var.className} m-auto min-h-dvh px-4 antialiased md:max-w-4xl`}
+				className={`${pretendard_var.className} m-auto min-h-full px-4 antialiased md:max-w-4xl`}
 			>
 				<Providers>{children}</Providers>
 			</body>

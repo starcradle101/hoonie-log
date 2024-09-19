@@ -1,6 +1,6 @@
 import dayjs from 'dayjs';
 import { supabaseClient } from './client';
-import { Post } from '@/src/interfaces/post';
+import { BasePost, NewPost } from '@/src/interfaces/post';
 import { customSlugify } from '@/src/lib/api';
 import { v4 as uuidv4 } from 'uuid';
 
@@ -15,28 +15,19 @@ export const getAllPosts = async () => {
 	return data;
 };
 
-export const createPostData = async (
-	title: string,
-	description: string,
-	content: object,
-	thumbnail_url: string
-) => {
-	const baseSlug = customSlugify(title);
-	const slug = `${baseSlug}-${uuidv4()}`;
+export const createPostData = async (postData: NewPost) => {
+	const slug = `${customSlugify(postData.title)}-${uuidv4()}`;
 	const created_at = dayjs().format('YYYY-MM-DD');
 
-	const postData: Post = {
+	const fullPostData = {
+		...postData,
 		slug,
-		title,
-		description,
-		content,
 		created_at,
-		thumbnail_url,
 	};
 
 	const { data, error } = await supabaseClient
 		.from('posts')
-		.insert([postData])
+		.insert([fullPostData])
 		.select();
 
 	if (error) {
@@ -47,20 +38,7 @@ export const createPostData = async (
 	return { success: true, data };
 };
 
-export const updatePostData = async (
-	slug: string,
-	title: string,
-	description: string,
-	content: object,
-	thumbnail_url: string
-) => {
-	const postData = {
-		title,
-		description,
-		content,
-		thumbnail_url,
-	};
-
+export const updatePostData = async (slug: string, postData: BasePost) => {
 	const { data, error } = await supabaseClient
 		.from('posts')
 		.update(postData)

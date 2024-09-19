@@ -1,16 +1,11 @@
 'use client';
 import { usePathname } from 'next/navigation';
-import { PostAbstract } from '@/src/interfaces/post';
+import { PostAbstractItemProps } from '@/src/interfaces/post';
 import { useState } from 'react';
 import { deletePostData } from '@/src/utils/supabase/clientActions';
 import dayjs from 'dayjs';
 import Link from 'next/link';
 import Modal from '../ui/Modal';
-
-interface PostAbstractItemProps {
-	post: PostAbstract;
-	onPostDeleted: () => void;
-}
 
 export default function PostListItem({
 	post,

@@ -19,6 +19,7 @@ export async function GET(req: Request) {
 						justifyContent: 'center',
 						alignItems: 'center',
 						fontSize: 60,
+						background: '#f0f0f0',
 					}}
 				>
 					<h1>No Post Found</h1>
@@ -31,8 +32,8 @@ export async function GET(req: Request) {
 		);
 	}
 
+	// 썸네일이 있는 경우의 레이아웃
 	if (post.thumbnail_url) {
-		// 썸네일 이미지가 있는 경우, 이를 배경으로 사용
 		return new ImageResponse(
 			(
 				<div
@@ -46,8 +47,6 @@ export async function GET(req: Request) {
 						backgroundSize: 'cover',
 						backgroundPosition: 'center',
 						padding: '20px',
-						textAlign: 'left',
-						fontFamily: 'sans-serif',
 					}}
 				>
 					<div
@@ -82,7 +81,7 @@ export async function GET(req: Request) {
 		);
 	}
 
-	// 썸네일 이미지가 없는 경우, 기존 로직 사용
+	// 썸네일이 없는 경우의 레이아웃
 	return new ImageResponse(
 		(
 			<div
@@ -95,23 +94,20 @@ export async function GET(req: Request) {
 					height: '100%',
 					backgroundColor: '#4F46E5',
 					color: 'white',
-					padding: '20px',
+					padding: '40px',
 					textAlign: 'center',
-					fontFamily: 'sans-serif',
 				}}
 			>
-				<svg
-					xmlns='http://www.w3.org/2000/svg'
-					viewBox='0 0 24 24'
-					fill='white'
-					width='100'
-					height='100'
-					style={{ marginBottom: '20px' }}
+				<h2
+					style={{
+						fontSize: '60px',
+						fontWeight: 'bold',
+						marginBottom: '20px',
+					}}
 				>
-					<path d='M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zM11 9V4.07c.32-.05.66-.07 1-.07s.68.02 1 .07V9h-2zm6.79 5c-.13.58-.21 1.17-.21 1.79 0 4.07-3.05 7.43-7 7.93V17c1.1 0 2-.9 2-2v-1l5.79-5.79c.12.58.21 1.17.21 1.79 0 4.07-3.05 7.43-7 7.93V17c1.1 0 2-.9 2-2v-1l5.79-5.79c.12.58.21 1.17.21 1.79z' />
-				</svg>
-				<h2 style={{ fontSize: '50px', fontWeight: 'bold' }}>{post.title}</h2>
-				<p style={{ fontSize: '24px', marginTop: '10px' }}>
+					{post.title}
+				</h2>
+				<p style={{ fontSize: '30px', maxWidth: '800px' }}>
 					{post.description}
 				</p>
 			</div>

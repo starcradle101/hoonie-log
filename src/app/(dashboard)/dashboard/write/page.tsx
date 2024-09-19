@@ -1,25 +1,31 @@
 'use client';
 import { useEffect, useState, Suspense } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
-import Image from 'next/image';
-import Tiptap from '@/src/app/components/editor/Tiptap';
 import Modal from '@/src/app/components/ui/Modal';
 import {
 	updatePostData,
 	createPostData,
+	uploadThumbnail,
 } from '@/src/utils/supabase/clientActions';
 import { getPostFromSlug } from '@/src/utils/supabase/serverActions';
-import { uploadThumbnail } from '@/src/utils/supabase/clientActions';
-import { Post } from '@/src/interfaces/post';
+import { NewPost, ExistingPost, BasePost } from '@/src/interfaces/post';
+import { TitleInput } from '@/src/app/components/post/TitleInput';
+import { DescriptionInput } from '@/src/app/components/post/DescriptionInput';
+import { ThumbnailInput } from '@/src/app/components/post/ThumbnailInput';
+import { ContentEditor } from '@/src/app/components/post/ContentEditor';
 
 function WritePageContent() {
-	const [title, setTitle] = useState<string>('');
-	const [description, setDescription] = useState<string>('');
-	const [content, setContent] = useState<object>({});
+	const [post, setPost] = useState<NewPost>({
+		title: '',
+		description: '',
+		content: {},
+		thumbnail_url: '',
+	});
+	const [existingPost, setExistingPost] = useState<ExistingPost | null>(null);
 	const [thumbnail, setThumbnail] = useState<File | null>(null);
-	const [thumbnailUrl, setThumbnailUrl] = useState<string>('');
 	const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
 	const [isLoading, setIsLoading] = useState<boolean>(true);
+	const [isSaveDisabled, setIsSaveDisabled] = useState<boolean>(true);
 	const router = useRouter();
 	const searchParams = useSearchParams();
 	const slug = searchParams.get('slug');
@@ -27,12 +33,10 @@ function WritePageContent() {
 	useEffect(() => {
 		const fetchPost = async () => {
 			if (slug) {
-				const post: Post | null = await getPostFromSlug(slug);
-				if (post) {
-					setTitle(post.title);
-					setDescription(post.description);
-					setContent(post.content);
-					setThumbnailUrl(post.thumbnail_url);
+				const fetchedPost: ExistingPost | null = await getPostFromSlug(slug);
+				if (fetchedPost) {
+					setExistingPost(fetchedPost);
+					setPost(fetchedPost);
 				}
 			}
 			setIsLoading(false);
@@ -40,54 +44,45 @@ function WritePageContent() {
 		fetchPost();
 	}, [slug]);
 
-	const handleTitleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-		setTitle(e.target.value);
-	};
+	useEffect(() => {
+		setIsSaveDisabled(!(post.title && post.description));
+	}, [post.title, post.description]);
 
-	const handleDescriptionChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-		setDescription(e.target.value);
-	};
+	const handleInputChange =
+		(field: keyof BasePost) => (e: React.ChangeEvent<HTMLInputElement>) => {
+			setPost({ ...post, [field]: e.target.value });
+		};
 
 	const handleContentChange = (newContent: object) => {
-		setContent(newContent);
+		setPost({ ...post, content: newContent });
 	};
 
-	const handleThumbnailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-		if (e.target.files && e.target.files[0]) {
-			const file = e.target.files[0];
-			setThumbnail(file);
-			setThumbnailUrl(URL.createObjectURL(file));
+	const handleThumbnailChange = async (file: File) => {
+		try {
+			const uploadedThumbnailUrl = await uploadThumbnail(file);
+			setPost({ ...post, thumbnail_url: uploadedThumbnailUrl });
+		} catch (error) {
+			console.error('Error uploading thumbnail:', error);
 		}
+	};
+
+	const handleThumbnailReset = () => {
+		setPost({ ...post, thumbnail_url: '' });
 	};
 
 	const handleSubmit = async (e: React.FormEvent) => {
 		e.preventDefault();
-		let uploadedThumbnailUrl = thumbnailUrl;
+		const postData: NewPost = { ...post };
 
-		if (thumbnail) {
-			uploadedThumbnailUrl = await uploadThumbnail(thumbnail);
-		}
-
-		if (!slug) {
-			const result = await createPostData(
-				title,
-				description,
-				content,
-				uploadedThumbnailUrl
-			);
+		if (!existingPost) {
+			const result = await createPostData(postData);
 			if (result.success) {
 				router.push('/dashboard');
 			} else {
 				console.error('Error creating post:', result.error);
 			}
 		} else {
-			const result = await updatePostData(
-				slug,
-				title,
-				description,
-				content,
-				uploadedThumbnailUrl
-			);
+			const result = await updatePostData(existingPost.slug, postData);
 			if (result.success) {
 				router.push('/dashboard');
 			} else {
@@ -96,14 +91,8 @@ function WritePageContent() {
 		}
 	};
 
-	const openModal = () => {
-		setIsModalOpen(true);
-	};
-
-	const closeModal = () => {
-		setIsModalOpen(false);
-	};
-
+	const openModal = () => setIsModalOpen(true);
+	const closeModal = () => setIsModalOpen(false);
 	const handleExit = () => {
 		setIsModalOpen(false);
 		router.back();
@@ -114,81 +103,50 @@ function WritePageContent() {
 	}
 
 	return (
-		<div className='m-auto flex h-full flex-col md:max-w-3xl'>
-			<h1 className='my-8 text-2xl font-semibold md:text-4xl'>
-				{!slug || slug === 'new' ? '새 글 작성하기' : '글 수정하기'}
+		<div className='m-auto max-w-7xl'>
+			<h1 className='mb-4 mt-8 text-2xl font-semibold'>
+				{!existingPost ? '새 글 작성하기' : '글 수정하기'}
 			</h1>
-			<form className='mt-4 flex flex-1 flex-col' onSubmit={handleSubmit}>
-				<label htmlFor='title'>
-					<span>제목</span>
-					<span className='text-red-500'>*</span>
-				</label>
-				<input
-					type='text'
-					id='title'
-					placeholder='작성할 글의 제목을 입력해주세요.'
-					className='mb-4 mt-2 block w-full resize-none rounded border-2 p-2 focus:outline-green-500'
-					value={title}
-					onChange={handleTitleChange}
-				/>
-
-				<label htmlFor='description'>
-					<span>설명</span>
-					<span className='text-red-500'>*</span>
-				</label>
-				<input
-					type='text'
-					id='description'
-					placeholder='작성할 글에 대한 간단한 설명을 입력해주세요.'
-					className='mb-4 mt-2 block w-full resize-none rounded border-2 p-2 focus:outline-green-500'
-					value={description}
-					onChange={handleDescriptionChange}
-				/>
-
-				<label htmlFor='thumbnail'>
-					<span>썸네일</span>
-				</label>
-				<input
-					type='file'
-					id='thumbnail'
-					accept='image/*'
-					onChange={handleThumbnailChange}
-					className='mb-4 mt-2 block w-full'
-				/>
-				{thumbnailUrl && (
-					<div className='mb-4'>
-						<Image
-							src={thumbnailUrl}
-							alt='썸네일 미리보기'
-							width={200}
-							height={200}
-							objectFit='cover'
-						/>
+			<form
+				className='mt-4 flex flex-col flex-nowrap gap-4 lg:flex-row'
+				onSubmit={handleSubmit}
+			>
+				<div className='flex-1 overflow-hidden'>
+					<TitleInput
+						title={post.title}
+						onChange={handleInputChange('title')}
+					/>
+					<ContentEditor
+						content={post.content}
+						onChange={handleContentChange}
+					/>
+				</div>
+				<div className='flex-2 min-w-[33%]'>
+					<DescriptionInput
+						description={post.description}
+						onChange={handleInputChange('description')}
+					/>
+					<ThumbnailInput
+						thumbnailUrl={post.thumbnail_url}
+						onChange={handleThumbnailChange}
+						onReset={handleThumbnailReset}
+					/>
+					<div className='my-4 flex flex-col gap-2'>
+						<button
+							type='submit'
+							className='rounded bg-blue-500 px-3 py-1 text-white disabled:bg-gray-400'
+							disabled={isSaveDisabled}
+						>
+							저장
+						</button>
+						<button
+							type='button'
+							className='rounded border border-slate-400 bg-white px-3 py-1'
+							onClick={openModal}
+						>
+							취소
+						</button>
 					</div>
-				)}
-
-				<label htmlFor='body'>
-					<span>본문</span>
-					<span className='text-red-500'>*</span>
-				</label>
-				<Tiptap id='body' content={content} onChange={handleContentChange} />
-
-				<div className='my-4 flex justify-end gap-2'>
-					<button
-						type='submit'
-						className='rounded bg-blue-500 px-3 py-1 text-white'
-					>
-						저장
-					</button>
-					<button
-						className='rounded border border-slate-400 bg-white px-3 py-1'
-						onClick={(e) => {
-							e.preventDefault();
-							openModal();
-						}}
-					>
-						취소
-					</button>
 				</div>
 			</form>
 
