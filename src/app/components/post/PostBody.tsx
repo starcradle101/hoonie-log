@@ -1,8 +1,6 @@
 'use client';
-import '@/src/app/globals.css';
-import { useEffect } from 'react';
-import hljs from 'highlight.js/lib/core';
-import { generateHTML } from '@tiptap/html';
+import { EditorContent, useEditor } from '@tiptap/react';
+import StarterKit from '@tiptap/starter-kit';
 import CodeBlockLowlight from '@tiptap/extension-code-block-lowlight';
 import FontFamily from '@tiptap/extension-font-family';
 import Highlight from '@tiptap/extension-highlight';
@@ -12,33 +10,17 @@ import ListKeymap from '@tiptap/extension-list-keymap';
 import TextStyle from '@tiptap/extension-text-style';
 import Typography from '@tiptap/extension-typography';
 import Underline from '@tiptap/extension-underline';
-import StarterKit from '@tiptap/starter-kit';
-import { useMemo } from 'react';
-
-import { createLowlight } from 'lowlight';
-import css from 'highlight.js/lib/languages/css';
-import js from 'highlight.js/lib/languages/javascript';
-import ts from 'highlight.js/lib/languages/typescript';
-import html from 'highlight.js/lib/languages/xml';
-
-const lowlight = createLowlight();
-lowlight.register('js', js);
-lowlight.register('ts', ts);
-lowlight.register('css', css);
-lowlight.register('html', html);
-
-hljs.registerLanguage('javascript', js);
-hljs.registerLanguage('typescript', ts);
-hljs.registerLanguage('css', css);
-hljs.registerLanguage('html', html);
+import React from 'react';
+import { common, createLowlight } from 'lowlight';
+import ToC from './ToC';
 
 interface PostBodyProps {
 	postContent: object;
 }
 
 export default function PostBody({ postContent }: PostBodyProps) {
-	const output = useMemo(() => {
-		return generateHTML(postContent, [
+	const editor = useEditor({
+		extensions: [
 			StarterKit.configure({
 				codeBlock: false,
 				heading: {
@@ -46,7 +28,7 @@ export default function PostBody({ postContent }: PostBodyProps) {
 				},
 			}),
 			CodeBlockLowlight.configure({
-				lowlight: lowlight,
+				lowlight: createLowlight(common),
 			}),
 			FontFamily,
 			Highlight,
@@ -58,19 +40,25 @@ export default function PostBody({ postContent }: PostBodyProps) {
 			TextStyle,
 			Typography,
 			Underline,
-		]);
-	}, [postContent]);
+		],
+		content: postContent,
+		editable: false,
+		editorProps: {
+			attributes: {
+				class:
+					'prose m-5 prose lg:prose-lg focus:outline-none dark:prose-invert mx-auto',
+			},
+		},
+	});
 
-	useEffect(() => {
-		document.querySelectorAll('pre code').forEach((el) => {
-			hljs.highlightElement(el as HTMLElement);
-		});
-	}, [output]);
+	if (!editor) {
+		return null;
+	}
 
 	return (
-		<section
-			className='tiptap mb-2 dark:text-white'
-			dangerouslySetInnerHTML={{ __html: output }}
-		></section>
+		<section className='mb-2'>
+			<ToC />
+			<EditorContent editor={editor} />
+		</section>
 	);
 }
