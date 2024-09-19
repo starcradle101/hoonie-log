@@ -111,8 +111,6 @@ export const getPostFromSlug = async (slug: string) => {
 		.limit(1)
 		.maybeSingle();
 
-	console.log('Data fetched for slug:', slug, data);
-
 	if (error) {
 		console.error('Error fetching post:', error.message);
 		return null;
