@@ -1,7 +1,7 @@
 import localFont from 'next/font/local';
-import Header from '../components/Header';
-import Footer from '../components/Footer';
-import Providers from '../components/Providers';
+import Header from '../components/layout/Header';
+import Footer from '../components/layout/Footer';
+import Providers from '../components/layout/Providers';
 import '../globals.css';
 
 const pretendard_var = localFont({
@@ -15,16 +15,16 @@ export default function BlogRootLayout({
 	children: React.ReactNode;
 }>) {
 	return (
-		<html lang='en'>
+		<html lang='en' className='h-full'>
 			<body
-				className={`${pretendard_var.className} flex h-screen flex-col antialiased`}
+				className={`${pretendard_var.className} flex min-h-full flex-col antialiased`}
 			>
 				<Providers>
-					<Header></Header>
-					<main className=' m-auto mt-5  w-full max-w-3xl flex-1 px-5 md:w-[calc(100%-4rem)] md:max-w-3xl md:px-0 xl:w-[calc(100%-30rem)]'>
+					<Header />
+					<main className='mx-auto w-full max-w-3xl flex-grow px-5 py-5'>
 						{children}
 					</main>
-					<Footer></Footer>
+					<Footer />
 				</Providers>
 			</body>
 		</html>

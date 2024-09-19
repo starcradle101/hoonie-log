@@ -1,7 +1,7 @@
 'use client';
 import { Suspense } from 'react';
 import PostAbstractList from './PostAbstractList';
-import Loading from './Loading';
+import Loading from '../ui/Loading';
 
 export default function PostAbstractListWrapper({
 	query,

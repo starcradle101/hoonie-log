@@ -1,5 +1,5 @@
-import Github from './icon/Github';
-import Authentication from './icon/Authentication';
+import Github from '../icon/Github';
+import Authentication from '../icon/Authentication';
 
 export default function Footer() {
 	return (

@@ -5,7 +5,7 @@ import { ArrowLeftIcon, ArrowRightIcon } from 'lucide-react';
 import PostListItem from './PostListItem';
 import { PostAbstract } from '@/src/interfaces/post';
 import { fetchPostAbstracts } from '@/src/utils/supabase/serverActions';
-import { PostListSkeleton } from './skeletons/PostListSkeleton';
+import { PostListSkeleton } from '../skeletons/PostListSkeleton';
 
 const ITEMS_PER_PAGE = 10;
 

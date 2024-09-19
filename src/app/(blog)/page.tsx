@@ -4,7 +4,7 @@ import Profile from '@/public/profile.jpg';
 import Github from '../components/icon/Github';
 
 import { Mail } from 'lucide-react';
-import LatestPost from '../components/LatestPost';
+import LatestPost from '../components/post/LatestPost';
 
 const socialLinks = [
 	{
