@@ -1,9 +1,5 @@
+import { PostHeaderProps } from '@/src/interfaces/post';
 import { CalendarDays } from 'lucide-react';
-
-interface PostHeaderProps {
-	title: string;
-	created_at: string;
-}
 
 export default function PostHeader({ title, created_at }: PostHeaderProps) {
 	return (
