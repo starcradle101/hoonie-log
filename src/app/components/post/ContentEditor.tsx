@@ -11,6 +11,6 @@ export const ContentEditor: FC<ContentEditorProps> = ({
 			<span>본문</span>
 			<span className='text-red-500'>*</span>
 		</label>
-		<Tiptap content={content} onChange={onChange} id='body' />
+		<Tiptap content={content} onChange={onChange} />
 	</>
 );

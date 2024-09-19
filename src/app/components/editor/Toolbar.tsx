@@ -23,7 +23,7 @@ import {
 
 type Props = {
 	editor: Editor | null;
-	content: string;
+	content: object;
 };
 
 const Toolbar = ({ editor }: Props) => {
@@ -178,7 +178,11 @@ const Toolbar = ({ editor }: Props) => {
 				<Fragment key={groupIndex}>
 					{group.map((item, index) => (
 						<button
-							className={`m-1 p-1 ${item.isActive(editor) ? 'rounded-md bg-green-500 text-white' : ''}`}
+							className={`m-1 p-1 ${
+								item.isActive(editor)
+									? 'rounded-md bg-green-500 text-white'
+									: ''
+							}`}
 							key={index}
 							onClick={(e) => {
 								e.preventDefault();
