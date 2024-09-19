@@ -11,7 +11,8 @@
 		"build": "next build",
 		"start": "next start",
 		"lint": "next lint",
-		"prepare": "husky && husky install"
+		"prepare": "husky && husky install",
+		"analyze": "ANALYZE=true next build"
 	},
 	"lint-staged": {
 		"*.{ts,tsx}": [
@@ -21,6 +22,7 @@
 		"*.css": "prettier --write"
 	},
 	"dependencies": {
+		"@next/bundle-analyzer": "^14.2.12",
 		"@supabase/ssr": "^0.3.0",
 		"@supabase/supabase-js": "^2.43.2",
 		"@tiptap/extension-code-block-lowlight": "^2.4.0",
