@@ -68,11 +68,11 @@ const Tiptap: FC<TiptapProps> = ({ onChange, content }) => {
 	});
 
 	return (
-		<div className='mt-2 flex flex-1 flex-col rounded border-2' id='body'>
+		<div className='mt-2 flex flex-col rounded border-2' id='body'>
 			<Toolbar editor={editor} content={content} />
 			<EditorContent
 				editor={editor}
-				className='flex flex-grow-0 flex-col overflow-auto whitespace-pre-line px-2 py-4'
+				className='flex h-[730px] flex-grow-0 flex-col overflow-auto whitespace-pre-line px-2 py-4'
 			/>
 		</div>
 	);

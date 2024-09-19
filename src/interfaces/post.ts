@@ -45,6 +45,7 @@ export interface DescriptionInputProps {
 export interface ThumbnailInputProps {
 	thumbnailUrl: string;
 	onChange: (e: ChangeEvent<HTMLInputElement>) => void;
+	onReset: () => void;
 }
 export interface ContentEditorProps {
 	content: object;

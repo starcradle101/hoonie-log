@@ -6,11 +6,10 @@ export const ContentEditor: FC<ContentEditorProps> = ({
 	content,
 	onChange,
 }) => (
-	<>
+	<div className='h-full'>
 		<label htmlFor='body'>
-			<span>본문</span>
-			<span className='text-red-500'>*</span>
+			<span>내용</span>
 		</label>
 		<Tiptap content={content} onChange={onChange} />
-	</>
+	</div>
 );

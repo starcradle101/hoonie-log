@@ -13,7 +13,6 @@ import { TitleInput } from '@/src/app/components/post/TitleInput';
 import { DescriptionInput } from '@/src/app/components/post/DescriptionInput';
 import { ThumbnailInput } from '@/src/app/components/post/ThumbnailInput';
 import { ContentEditor } from '@/src/app/components/post/ContentEditor';
-import { FormButtons } from '@/src/app/components/post/FormButtons';
 
 function WritePageContent() {
 	const [post, setPost] = useState<NewPost>({
@@ -26,6 +25,7 @@ function WritePageContent() {
 	const [thumbnail, setThumbnail] = useState<File | null>(null);
 	const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
 	const [isLoading, setIsLoading] = useState<boolean>(true);
+	const [isSaveDisabled, setIsSaveDisabled] = useState<boolean>(true);
 	const router = useRouter();
 	const searchParams = useSearchParams();
 	const slug = searchParams.get('slug');
@@ -44,6 +44,10 @@ function WritePageContent() {
 		fetchPost();
 	}, [slug]);
 
+	useEffect(() => {
+		setIsSaveDisabled(!(post.title && post.description));
+	}, [post.title, post.description]);
+
 	const handleInputChange =
 		(field: keyof BasePost) => (e: React.ChangeEvent<HTMLInputElement>) => {
 			setPost({ ...post, [field]: e.target.value });
@@ -53,23 +57,22 @@ function WritePageContent() {
 		setPost({ ...post, content: newContent });
 	};
 
-	const handleThumbnailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-		if (e.target.files && e.target.files[0]) {
-			const file = e.target.files[0];
-			setThumbnail(file);
-			setPost({ ...post, thumbnail_url: URL.createObjectURL(file) });
+	const handleThumbnailChange = async (file: File) => {
+		try {
+			const uploadedThumbnailUrl = await uploadThumbnail(file);
+			setPost({ ...post, thumbnail_url: uploadedThumbnailUrl });
+		} catch (error) {
+			console.error('Error uploading thumbnail:', error);
 		}
+	};
+
+	const handleThumbnailReset = () => {
+		setPost({ ...post, thumbnail_url: '' });
 	};
 
 	const handleSubmit = async (e: React.FormEvent) => {
 		e.preventDefault();
-		let uploadedThumbnailUrl = post.thumbnail_url;
-
-		if (thumbnail) {
-			uploadedThumbnailUrl = await uploadThumbnail(thumbnail);
-		}
-
-		const postData: NewPost = { ...post, thumbnail_url: uploadedThumbnailUrl };
+		const postData: NewPost = { ...post };
 
 		if (!existingPost) {
 			const result = await createPostData(postData);
@@ -100,22 +103,51 @@ function WritePageContent() {
 	}
 
 	return (
-		<div className='m-auto flex h-full flex-col md:max-w-3xl'>
-			<h1 className='mb-4 mt-8 text-2xl font-semibold md:text-4xl'>
+		<div className='m-auto max-w-7xl'>
+			<h1 className='mb-4 mt-8 text-2xl font-semibold'>
 				{!existingPost ? '새 글 작성하기' : '글 수정하기'}
 			</h1>
-			<form className='mt-4 flex flex-1 flex-col' onSubmit={handleSubmit}>
-				<TitleInput title={post.title} onChange={handleInputChange('title')} />
-				<DescriptionInput
-					description={post.description}
-					onChange={handleInputChange('description')}
-				/>
-				<ThumbnailInput
-					thumbnailUrl={post.thumbnail_url}
-					onChange={handleThumbnailChange}
-				/>
-				<ContentEditor content={post.content} onChange={handleContentChange} />
-				<FormButtons onCancel={openModal} />
+			<form
+				className='mt-4 flex flex-col flex-nowrap gap-4 lg:flex-row'
+				onSubmit={handleSubmit}
+			>
+				<div className='flex-1 overflow-hidden'>
+					<TitleInput
+						title={post.title}
+						onChange={handleInputChange('title')}
+					/>
+					<ContentEditor
+						content={post.content}
+						onChange={handleContentChange}
+					/>
+				</div>
+				<div className='flex-2 min-w-[33%]'>
+					<DescriptionInput
+						description={post.description}
+						onChange={handleInputChange('description')}
+					/>
+					<ThumbnailInput
+						thumbnailUrl={post.thumbnail_url}
+						onChange={handleThumbnailChange}
+						onReset={handleThumbnailReset}
+					/>
+					<div className='my-4 flex flex-col gap-2'>
+						<button
+							type='submit'
+							className='rounded bg-blue-500 px-3 py-1 text-white disabled:bg-gray-400'
+							disabled={isSaveDisabled}
+						>
+							저장
+						</button>
+						<button
+							type='button'
+							className='rounded border border-slate-400 bg-white px-3 py-1'
+							onClick={openModal}
+						>
+							취소
+						</button>
+					</div>
+				</div>
 			</form>
 
 			<Modal

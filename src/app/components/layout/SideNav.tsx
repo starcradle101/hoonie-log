@@ -8,7 +8,7 @@ export default function SideNav() {
 	return (
 		<nav className='flex shrink-0 flex-col p-2 md:h-screen'>
 			<Link
-				className='flex h-20 items-end justify-start rounded-md bg-green-900 p-4 md:mb-2 md:h-40 '
+				className='flex h-20 items-end justify-start rounded-md bg-blue-700 p-4 md:mb-2 md:h-40 '
 				href='/'
 			>
 				<HoonieLogo />
@@ -20,7 +20,7 @@ export default function SideNav() {
 					<NavLinks />
 				</div>
 
-				<div className='mt-2 flex items-center justify-start rounded-md bg-gray-50 hover:bg-green-100 hover:text-green-600 md:mt-0'>
+				<div className='mt-2 flex items-center justify-start rounded-md bg-gray-50 hover:bg-green-100 hover:text-blue-500 md:mt-0'>
 					<form>
 						<button
 							formAction={signout}

@@ -11,7 +11,7 @@ export const TitleInput: FC<TitleInputProps> = ({ title, onChange }) => (
 			type='text'
 			id='title'
 			placeholder='작성할 글의 제목을 입력해주세요.'
-			className='mb-4 mt-2 block w-full resize-none rounded border-2 p-2 focus:outline-green-500'
+			className='mb-4 mt-2 block w-full resize-none rounded border-2 p-2 focus:outline-blue-500'
 			value={title}
 			onChange={onChange}
 		/>
