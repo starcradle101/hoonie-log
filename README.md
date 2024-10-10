@@ -148,3 +148,5 @@ hoonie-log
 🔗 [Next.js Portfolio with Blog](https://vercel.com/templates/next.js/nextjs-portfolio)<br/>
 🔗 [리디바탕체](https://ridicorp.com/ridibatang/)<br/>
 🔗 [Pretendard Variable](https://cactus.tistory.com/306)
+
+히히 리드미 수정
