@@ -1,5 +1,5 @@
 'use client';
-import HoonieLogo from '../../components/icon/HoonieLogo';
+import HoonieLogo from '@/src/components/icon/HoonieLogo';
 import Link from 'next/link';
 import { login } from '@/src/utils/supabase/serverActions';
 import { useRouter } from 'next/navigation';

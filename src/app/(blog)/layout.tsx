@@ -1,7 +1,8 @@
 import localFont from 'next/font/local';
-import Header from '../components/layout/Header';
-import Footer from '../components/layout/Footer';
-import Providers from '../components/layout/Providers';
+
+import Header from '@/src/components/layout/Header';
+import Footer from '@/src/components/layout/Footer';
+import Providers from '@/src/components/layout/Providers';
 import '../globals.css';
 
 const pretendard_var = localFont({

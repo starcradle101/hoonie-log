@@ -1,7 +1,7 @@
 'use client';
 import { useEffect, useState, Suspense } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
-import Modal from '@/src/app/components/ui/Modal';
+import Modal from '@/src/components/ui/Modal';
 import {
 	updatePostData,
 	createPostData,
@@ -9,10 +9,11 @@ import {
 } from '@/src/utils/supabase/clientActions';
 import { getPostFromSlug } from '@/src/utils/supabase/serverActions';
 import { NewPost, ExistingPost, BasePost } from '@/src/interfaces/post';
-import { TitleInput } from '@/src/app/components/post/TitleInput';
-import { DescriptionInput } from '@/src/app/components/post/DescriptionInput';
-import { ThumbnailInput } from '@/src/app/components/post/ThumbnailInput';
-import { ContentEditor } from '@/src/app/components/post/ContentEditor';
+
+import { TitleInput } from '@/src/components/post/TitleInput';
+import { DescriptionInput } from '@/src/components/post/DescriptionInput';
+import { ThumbnailInput } from '@/src/components/post/ThumbnailInput';
+import { ContentEditor } from '@/src/components/post/ContentEditor';
 
 function WritePageContent() {
 	const [post, setPost] = useState<NewPost>({

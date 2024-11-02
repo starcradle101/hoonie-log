@@ -1,5 +1,5 @@
-import Search from '../../components/ui/Search';
-import PostAbstractListWrapper from '../../components/post/PostAbstarctListWrapper';
+import Search from '@/src/components/ui/Search';
+import PostAbstractListWrapper from '@/src/components/post/PostAbstarctListWrapper';
 
 export default function Page({
 	searchParams,

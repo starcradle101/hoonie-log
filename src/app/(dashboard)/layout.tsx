@@ -2,7 +2,7 @@
 import { usePathname } from 'next/navigation';
 import localFont from 'next/font/local';
 import '@/src/app/globals.css';
-import SideNav from '../components/layout/SideNav';
+import SideNav from '@/src/components/layout/SideNav';
 
 const pretendard_var = localFont({
 	src: '../../../public/fonts/pretendard_variable.woff2',

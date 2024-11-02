@@ -1,10 +1,8 @@
-import { Metadata } from 'next';
 import Image from 'next/image';
-import Profile from '@/public/profile.jpg';
-import Github from '../components/icon/Github';
+import Github from '@/src/components/icon/Github';
 
 import { Mail } from 'lucide-react';
-import LatestPost from '../components/post/LatestPost';
+import LatestPost from '@/src/components/post/LatestPost';
 
 const socialLinks = [
 	{
@@ -28,7 +26,7 @@ export default function Home() {
 
 			<section className='mb-10 flex flex-wrap justify-center gap-8'>
 				<Image
-					src={Profile}
+					src='/profile.jpg'
 					alt='profile'
 					priority={true}
 					className='aspect-square h-auto w-80 rounded-2xl'

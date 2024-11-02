@@ -1,7 +1,7 @@
 'use client';
 import localFont from 'next/font/local';
 import '@/src/app/globals.css';
-import Providers from '../components/layout/Providers';
+import Providers from '@/src/components/layout/Providers';
 
 const pretendard_var = localFont({
 	src: '../../../public/fonts/pretendard_variable.woff2',
