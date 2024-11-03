@@ -2,8 +2,16 @@ import PostHeader from '@/src/components/post/PostHeader';
 import PostBody from '@/src/components/post/PostBody';
 import { getPostFromSlug } from '@/src/utils/supabase/serverActions';
 
+type Post = {
+	title: string;
+	created_at: string;
+	content: object; // 수정된 부분
+};
+
 export default async function Page({ params }: { params: { slug: string } }) {
-	const post = await getPostFromSlug(decodeURIComponent(params.slug));
+	const post: Post | null = await getPostFromSlug(
+		decodeURIComponent(params.slug)
+	);
 
 	if (!post) {
 		return <div>Post not found</div>;
