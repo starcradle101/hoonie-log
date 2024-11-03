@@ -8,12 +8,13 @@ type Post = {
 	content: object;
 };
 
-export default async function Page({
-	params,
-}: {
-	params: Promise<{ slug: string }>;
-}) {
-	const { slug } = await params; // params를 비동기적으로 처리
+type Params = Promise<{ slug: string }>;
+type SearchParams = Promise<{ [key: string]: string | string[] | undefined }>;
+
+export default async function Page(props: { params: Params }) {
+	const params = await props.params;
+	const slug = params.slug;
+
 	const post: Post | null = await getPostFromSlug(decodeURIComponent(slug));
 
 	if (!post) {
